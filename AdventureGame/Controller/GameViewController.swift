@@ -7,29 +7,21 @@
 //
 
 import UIKit
-import SpriteKit
-import GameplayKit
 
 class GameViewController: UIViewController {
 
+    fileprivate let backgroundView: UIScrollView
+    
+    required init?(coder aDecoder: NSCoder) {
+        backgroundView = UIScrollView(frame: UIScreen.main.bounds)
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+        prepareUI()
+        
     }
 
     override var shouldAutorotate: Bool {
@@ -38,5 +30,17 @@ class GameViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+}
+
+// MARK: - Private Methods
+extension GameViewController {
+    fileprivate func prepareUI() {
+        view.addSubview(backgroundView)
+        backgroundView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 2)
+        backgroundView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        let storeView = StoreView(frame: CGRect(x: 10, y: 100, width: 200, height: 80))
+        backgroundView.addSubview(storeView)
     }
 }

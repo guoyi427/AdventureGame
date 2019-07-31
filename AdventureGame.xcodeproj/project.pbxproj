@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B526D22F168BB003967E4 /* StoreView.swift */; };
 		5BDC0E6C22E97AC80050F9C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC0E6B22E97AC80050F9C8 /* AppDelegate.swift */; };
 		5BDC0E6E22E97AC80050F9C8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5BDC0E6D22E97AC80050F9C8 /* GameScene.sks */; };
 		5BDC0E7022E97AC80050F9C8 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5BDC0E6F22E97AC80050F9C8 /* Actions.sks */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B9B526D22F168BB003967E4 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		5BDC0E6822E97AC80050F9C8 /* AdventureGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventureGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDC0E6B22E97AC80050F9C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5BDC0E6D22E97AC80050F9C8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B8B3D4222F0264900313557 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5B9B526D22F168BB003967E4 /* StoreView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		5BDC0E5F22E97AC80050F9C8 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +115,7 @@
 		5BDC0E6A22E97AC80050F9C8 /* AdventureGame */ = {
 			isa = PBXGroup;
 			children = (
+				5B8B3D4222F0264900313557 /* View */,
 				5BDC0EA222E98C260050F9C8 /* Controller */,
 				5BDC0EA422E98C260050F9C8 /* Manager */,
 				5BDC0EA122E98C260050F9C8 /* Node */,
@@ -305,6 +316,7 @@
 				5BDC0EA522E98C260050F9C8 /* GameScene.swift in Sources */,
 				5BDC0EA822E98D000050F9C8 /* StoreNode.swift in Sources */,
 				5BDC0EA622E98C260050F9C8 /* GameViewController.swift in Sources */,
+				5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */,
 				5BDC0E6C22E97AC80050F9C8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
