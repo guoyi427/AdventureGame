@@ -17,9 +17,9 @@ class StoreView: UIView {
     
 
     override init(frame: CGRect) {
-        avatarView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        nameLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 100, height: 20))
-        timeLabel = UILabel(frame: CGRect(x: 0, y: 150, width: 50, height: 20))
+        avatarView = UIImageView(frame: CGRect.zero)
+        nameLabel = UILabel(frame: CGRect.zero)
+        timeLabel = UILabel(frame: CGRect.zero)
         progressView = UIProgressView(progressViewStyle: .default)
         super.init(frame: frame)
         
@@ -32,6 +32,36 @@ class StoreView: UIView {
     
     fileprivate func prepareUI() {
         backgroundColor = #colorLiteral(red: 0.7019608021, green: 0.8431372643, blue: 1, alpha: 1)
+        
+        avatarView.image = #imageLiteral(resourceName: "avatar")
+        addSubview(avatarView)
+        avatarView.snp.makeConstraints { (make) in
+            make.top.left.equalTo(10)
+            make.width.height.equalTo(50)
+        }
+        
+        nameLabel.text = "name"
+        addSubview(nameLabel)
+        nameLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(avatarView.snp.right).offset(10)
+            make.top.equalTo(avatarView)
+        }
+        
+        timeLabel.text = "123"
+        addSubview(timeLabel)
+        timeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(avatarView)
+            make.right.equalTo(-10)
+        }
+        
+        progressView.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+        addSubview(progressView)
+        progressView.snp.makeConstraints { (make) in
+            make.left.equalTo(avatarView)
+            make.right.equalTo(timeLabel.snp.right)
+            make.bottom.equalTo(-10)
+            make.height.equalTo(5)
+        }
     }
     
     func updateName(name: String) {

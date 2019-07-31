@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import SnapKit
 
 class GameViewController: UIViewController {
 
     fileprivate let backgroundView: UIScrollView
     
     required init?(coder aDecoder: NSCoder) {
-        backgroundView = UIScrollView(frame: UIScreen.main.bounds)
+        backgroundView = UIScrollView(frame: CGRect.zero)
         super.init(coder: aDecoder)
     }
     
@@ -37,6 +38,9 @@ class GameViewController: UIViewController {
 extension GameViewController {
     fileprivate func prepareUI() {
         view.addSubview(backgroundView)
+        backgroundView.snp.makeConstraints { (make) in
+            make.left.right.top.bottom.equalTo(0)
+        }
         backgroundView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 2)
         backgroundView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
