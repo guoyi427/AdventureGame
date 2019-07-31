@@ -16,10 +16,14 @@ class StoreView: UIView {
     fileprivate let contentView: UIView
     fileprivate let avatarView: UIImageView
     fileprivate let nameLabel: UILabel
+    fileprivate let incomeLabel: UILabel
     fileprivate let levelLabel: UILabel
     fileprivate let timeLabel: UILabel
     fileprivate let progressView: UIProgressView
 
+    var storeModel: StoreModel?
+    
+    
     override init(frame: CGRect) {
         upgradeButton = UIButton(type: .custom)
         operationButton = UIButton(type: .custom)
@@ -27,6 +31,7 @@ class StoreView: UIView {
         contentView = UIView(frame: CGRect.zero)
         avatarView = UIImageView(frame: CGRect.zero)
         nameLabel = UILabel(frame: CGRect.zero)
+        incomeLabel = UILabel(frame: CGRect.zero)
         levelLabel = UILabel(frame: CGRect.zero)
         timeLabel = UILabel(frame: CGRect.zero)
         progressView = UIProgressView(progressViewStyle: .default)
@@ -40,20 +45,14 @@ class StoreView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateName(name: String) {
-        nameLabel.text = name
-    }
-    
-    func updateAvatar(avatar: UIImage) {
-        avatarView.image = avatar
-    }
-    
-    func updateTime(time: CGFloat) {
-        timeLabel.text = "\(time)"
-    }
-    
-    func updateProgress(progress: Float) {
-        progressView.progress = progress
+    func update(model: StoreModel) {
+        storeModel = model
+        
+        nameLabel.text = model.name
+        avatarView.image = model.avatarImage
+        incomeLabel.text = "\(model.income)"
+        levelLabel.text = "\(model.level)"
+        timeLabel.text = "\(model.time)"
     }
 }
 
@@ -103,21 +102,25 @@ extension StoreView {
         }
         
         contentView.addSubview(avatarView)
-        avatarView.image = #imageLiteral(resourceName: "avatar")
         avatarView.snp.makeConstraints { (make) in
             make.top.left.equalTo(10)
             make.width.height.equalTo(50)
         }
         
         contentView.addSubview(nameLabel)
-        nameLabel.text = "name"
         nameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarView.snp.right).offset(10)
             make.top.equalTo(avatarView)
         }
         
+        contentView.addSubview(incomeLabel)
+        incomeLabel.font = UIFont.systemFont(ofSize: 18)
+        incomeLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(nameLabel)
+            make.top.equalTo(nameLabel.snp.bottom).offset(10)
+        }
+        
         contentView.addSubview(levelLabel)
-        levelLabel.text = "1"
         levelLabel.snp.makeConstraints { (make) in
             make.top.equalTo(avatarView)
             make.right.equalTo(-10)
@@ -134,7 +137,6 @@ extension StoreView {
         }
         
         contentView.addSubview(timeLabel)
-        timeLabel.text = "123"
         timeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(levelLabel.snp.bottom).offset(5)
             make.right.equalTo(-10)
@@ -157,6 +159,7 @@ extension StoreView {
     
     /// 执行按钮方法
     @objc fileprivate func operationButtonAction() {
-        
+        guard let model = storeModel else { return }
+        model.operation()
     }
 }

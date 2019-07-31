@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5094B4D22264CBB764F314C6 /* Pods_AdventureGameTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD451E42E7D4724A8CA90067 /* Pods_AdventureGameTests.framework */; };
 		5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B526D22F168BB003967E4 /* StoreView.swift */; };
+		5BAD56C822F19506005E3393 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD56C722F19506005E3393 /* StoreManager.swift */; };
+		5BAD56CB22F1958F005E3393 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD56CA22F1958F005E3393 /* StoreModel.swift */; };
 		5BDC0E6C22E97AC80050F9C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC0E6B22E97AC80050F9C8 /* AppDelegate.swift */; };
 		5BDC0E7722E97AC80050F9C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BDC0E7522E97AC80050F9C8 /* Main.storyboard */; };
 		5BDC0E7922E97AC90050F9C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDC0E7822E97AC90050F9C8 /* Assets.xcassets */; };
@@ -43,6 +45,8 @@
 		515EE9D3D298A103B8A9D915 /* Pods-AdventureGameUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameUITests.debug.xcconfig"; path = "Target Support Files/Pods-AdventureGameUITests/Pods-AdventureGameUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		538521BEA1A33DC9D7B2EEBC /* Pods-AdventureGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameTests.release.xcconfig"; path = "Target Support Files/Pods-AdventureGameTests/Pods-AdventureGameTests.release.xcconfig"; sourceTree = "<group>"; };
 		5B9B526D22F168BB003967E4 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+		5BAD56C722F19506005E3393 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		5BAD56CA22F1958F005E3393 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		5BDC0E6822E97AC80050F9C8 /* AdventureGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventureGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDC0E6B22E97AC80050F9C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5BDC0E7622E97AC80050F9C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -99,6 +103,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		5BAD56C922F19580005E3393 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5BAD56CA22F1958F005E3393 /* StoreModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		5BDC0E5F22E97AC80050F9C8 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +139,7 @@
 				5B8B3D4222F0264900313557 /* View */,
 				5BDC0EA222E98C260050F9C8 /* Controller */,
 				5BDC0EA422E98C260050F9C8 /* Manager */,
+				5BAD56C922F19580005E3393 /* Model */,
 				5BDC0E6B22E97AC80050F9C8 /* AppDelegate.swift */,
 				5BDC0E7522E97AC80050F9C8 /* Main.storyboard */,
 				5BDC0E7822E97AC90050F9C8 /* Assets.xcassets */,
@@ -165,6 +178,7 @@
 		5BDC0EA422E98C260050F9C8 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				5BAD56C722F19506005E3393 /* StoreManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -179,7 +193,6 @@
 				515EE9D3D298A103B8A9D915 /* Pods-AdventureGameUITests.debug.xcconfig */,
 				D2FC3950DD92C34480AE1108 /* Pods-AdventureGameUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -420,8 +433,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BDC0EA622E98C260050F9C8 /* GameViewController.swift in Sources */,
+				5BAD56C822F19506005E3393 /* StoreManager.swift in Sources */,
 				5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */,
 				5BDC0E6C22E97AC80050F9C8 /* AppDelegate.swift in Sources */,
+				5BAD56CB22F1958F005E3393 /* StoreModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
