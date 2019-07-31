@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5094B4D22264CBB764F314C6 /* Pods_AdventureGameTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD451E42E7D4724A8CA90067 /* Pods_AdventureGameTests.framework */; };
 		5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B526D22F168BB003967E4 /* StoreView.swift */; };
 		5BDC0E6C22E97AC80050F9C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC0E6B22E97AC80050F9C8 /* AppDelegate.swift */; };
 		5BDC0E7722E97AC80050F9C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BDC0E7522E97AC80050F9C8 /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 		5BDC0E8722E97AC90050F9C8 /* AdventureGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC0E8622E97AC90050F9C8 /* AdventureGameTests.swift */; };
 		5BDC0E9222E97AC90050F9C8 /* AdventureGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC0E9122E97AC90050F9C8 /* AdventureGameUITests.swift */; };
 		5BDC0EA622E98C260050F9C8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC0EA322E98C260050F9C8 /* GameViewController.swift */; };
+		7C45BEDA2EAB84BD8C9CE3CF /* Pods_AdventureGameUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD20668C9EE65139562888D8 /* Pods_AdventureGameUITests.framework */; };
+		A426146D0B3F45ADC15D70E1 /* Pods_AdventureGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422CCAE33F26E4392D5E3AF0 /* Pods_AdventureGame.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E06043352358DD36F6C630E /* Pods-AdventureGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameTests.debug.xcconfig"; path = "Target Support Files/Pods-AdventureGameTests/Pods-AdventureGameTests.debug.xcconfig"; sourceTree = "<group>"; };
+		422CCAE33F26E4392D5E3AF0 /* Pods_AdventureGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		515EE9D3D298A103B8A9D915 /* Pods-AdventureGameUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameUITests.debug.xcconfig"; path = "Target Support Files/Pods-AdventureGameUITests/Pods-AdventureGameUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		538521BEA1A33DC9D7B2EEBC /* Pods-AdventureGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameTests.release.xcconfig"; path = "Target Support Files/Pods-AdventureGameTests/Pods-AdventureGameTests.release.xcconfig"; sourceTree = "<group>"; };
 		5B9B526D22F168BB003967E4 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		5BDC0E6822E97AC80050F9C8 /* AdventureGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventureGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDC0E6B22E97AC80050F9C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +56,11 @@
 		5BDC0E9122E97AC90050F9C8 /* AdventureGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureGameUITests.swift; sourceTree = "<group>"; };
 		5BDC0E9322E97AC90050F9C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BDC0EA322E98C260050F9C8 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		83A30CC9E1A97A73E32E9E2E /* Pods-AdventureGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGame.debug.xcconfig"; path = "Target Support Files/Pods-AdventureGame/Pods-AdventureGame.debug.xcconfig"; sourceTree = "<group>"; };
+		A46E8965C8EB2E28BCC6A401 /* Pods-AdventureGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGame.release.xcconfig"; path = "Target Support Files/Pods-AdventureGame/Pods-AdventureGame.release.xcconfig"; sourceTree = "<group>"; };
+		BD20668C9EE65139562888D8 /* Pods_AdventureGameUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureGameUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2FC3950DD92C34480AE1108 /* Pods-AdventureGameUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameUITests.release.xcconfig"; path = "Target Support Files/Pods-AdventureGameUITests/Pods-AdventureGameUITests.release.xcconfig"; sourceTree = "<group>"; };
+		FD451E42E7D4724A8CA90067 /* Pods_AdventureGameTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureGameTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A426146D0B3F45ADC15D70E1 /* Pods_AdventureGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5094B4D22264CBB764F314C6 /* Pods_AdventureGameTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C45BEDA2EAB84BD8C9CE3CF /* Pods_AdventureGameUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +106,8 @@
 				5BDC0E8522E97AC90050F9C8 /* AdventureGameTests */,
 				5BDC0E9022E97AC90050F9C8 /* AdventureGameUITests */,
 				5BDC0E6922E97AC80050F9C8 /* Products */,
+				8864DA47C91160379104635F /* Pods */,
+				E1311FD4E577D25D46A0AB68 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,6 +169,30 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		8864DA47C91160379104635F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				83A30CC9E1A97A73E32E9E2E /* Pods-AdventureGame.debug.xcconfig */,
+				A46E8965C8EB2E28BCC6A401 /* Pods-AdventureGame.release.xcconfig */,
+				1E06043352358DD36F6C630E /* Pods-AdventureGameTests.debug.xcconfig */,
+				538521BEA1A33DC9D7B2EEBC /* Pods-AdventureGameTests.release.xcconfig */,
+				515EE9D3D298A103B8A9D915 /* Pods-AdventureGameUITests.debug.xcconfig */,
+				D2FC3950DD92C34480AE1108 /* Pods-AdventureGameUITests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E1311FD4E577D25D46A0AB68 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				422CCAE33F26E4392D5E3AF0 /* Pods_AdventureGame.framework */,
+				FD451E42E7D4724A8CA90067 /* Pods_AdventureGameTests.framework */,
+				BD20668C9EE65139562888D8 /* Pods_AdventureGameUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,9 +200,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BDC0E9622E97AC90050F9C8 /* Build configuration list for PBXNativeTarget "AdventureGame" */;
 			buildPhases = (
+				E51FBA50E3D62C9684C994B6 /* [CP] Check Pods Manifest.lock */,
 				5BDC0E6422E97AC80050F9C8 /* Sources */,
 				5BDC0E6522E97AC80050F9C8 /* Frameworks */,
 				5BDC0E6622E97AC80050F9C8 /* Resources */,
+				E7DA81DEDE17F692AADF2A18 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +219,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BDC0E9922E97AC90050F9C8 /* Build configuration list for PBXNativeTarget "AdventureGameTests" */;
 			buildPhases = (
+				2EE45142F04E5D518FA90F86 /* [CP] Check Pods Manifest.lock */,
 				5BDC0E7E22E97AC90050F9C8 /* Sources */,
 				5BDC0E7F22E97AC90050F9C8 /* Frameworks */,
 				5BDC0E8022E97AC90050F9C8 /* Resources */,
@@ -194,6 +238,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BDC0E9C22E97AC90050F9C8 /* Build configuration list for PBXNativeTarget "AdventureGameUITests" */;
 			buildPhases = (
+				5385CAF39FB84B359AF7E76E /* [CP] Check Pods Manifest.lock */,
 				5BDC0E8922E97AC90050F9C8 /* Sources */,
 				5BDC0E8A22E97AC90050F9C8 /* Frameworks */,
 				5BDC0E8B22E97AC90050F9C8 /* Resources */,
@@ -277,6 +322,97 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2EE45142F04E5D518FA90F86 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AdventureGameTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5385CAF39FB84B359AF7E76E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AdventureGameUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E51FBA50E3D62C9684C994B6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AdventureGame-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E7DA81DEDE17F692AADF2A18 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AdventureGame/Pods-AdventureGame-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdventureGame/Pods-AdventureGame-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5BDC0E6422E97AC80050F9C8 /* Sources */ = {
@@ -458,6 +594,7 @@
 		};
 		5BDC0E9722E97AC90050F9C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83A30CC9E1A97A73E32E9E2E /* Pods-AdventureGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -477,6 +614,7 @@
 		};
 		5BDC0E9822E97AC90050F9C8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A46E8965C8EB2E28BCC6A401 /* Pods-AdventureGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -496,6 +634,7 @@
 		};
 		5BDC0E9A22E97AC90050F9C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E06043352358DD36F6C630E /* Pods-AdventureGameTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -517,6 +656,7 @@
 		};
 		5BDC0E9B22E97AC90050F9C8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 538521BEA1A33DC9D7B2EEBC /* Pods-AdventureGameTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -538,6 +678,7 @@
 		};
 		5BDC0E9D22E97AC90050F9C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 515EE9D3D298A103B8A9D915 /* Pods-AdventureGameUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -558,6 +699,7 @@
 		};
 		5BDC0E9E22E97AC90050F9C8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2FC3950DD92C34480AE1108 /* Pods-AdventureGameUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
