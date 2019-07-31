@@ -44,7 +44,10 @@ extension GameViewController {
         backgroundView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 2)
         backgroundView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-        let storeView = StoreView(frame: CGRect(x: 10, y: 100, width: 200, height: 80))
-        backgroundView.addSubview(storeView)
+        for x in 0...10 {
+            let storeView = StoreView(frame: CGRect(x: x%2==0 ? 50 : 400, y: x/2*90 + 50, width: 300, height: 80))
+            backgroundView.addSubview(storeView)
+            storeView.updateName(name: "name\(x)")
+        }
     }
 }
