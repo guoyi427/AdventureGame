@@ -62,11 +62,10 @@ class StoreModel: NSObject {
 extension StoreModel {
     @objc
     fileprivate func updateTimerAction() {
-        print("\(self) run again")
         time += 0.1
         if time >= Double(interval) {
             isOperation = false
-            StoreManager.shared.totalIncome = income + StoreManager.shared.totalIncome
+            StoreManager.shared.increaseTotaleIncome(income: income)
             if let timer = timer {
                 timer.invalidate()
                 self.timer = nil
