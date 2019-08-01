@@ -13,18 +13,30 @@ fileprivate let NameList = ["Lemoned", "Bar", "Car", "Bank", "Banana", "Oil", "H
 let MaxStoreIndex = 10
 
 class StoreModel: NSObject {
+    /// 商店名称
     var name = ""
+    /// 商店头像
     var avatarImage = #imageLiteral(resourceName: "avatar")
+    /// 等级
     var level: Int = 0
+    /// 当前执行间隔（影响因素包含 等级、加速倍数）
     var interval: Int = 0
+    /// 原始执行间隔
     var originalInterval: Int = 0
+    /// 当前收益（影响因素包含 等级、加速倍数）
     var income: Int = 0
+    /// 原始收益
     var originalIncome: Int = 0
+    /// 收益加速倍数
     var multiple: Int = 1
+    /// 当前执行时间
     var time: Double = 0
-    var open = false
+    /// 是否被解锁
+    var isUnlock = false
+    /// 是否正在执行
     var isOperation = false
-    var hasManager = false
+    /// 结束后是否自动执行下一次
+    var hasManager = true
     
     weak var view: StoreView?
     
@@ -67,7 +79,7 @@ class StoreModel: NSObject {
     func upgrade() {
         //  升级需要消耗的钱
         let needMoney = income * Int(pow(1.2, Double(level)))
-        print("upgrade need money = \(needMoney)")
+        //  如果金额不足弹窗提示用户
         if StoreManager.shared.totalIncome < needMoney {
             let alert = UIAlertController(title: "金额不足", message: "升级到\(level+1)级需要\(needMoney)金币", preferredStyle: .alert)
             let action = UIAlertAction(title: "好的", style: .cancel, handler: nil)
@@ -75,6 +87,8 @@ class StoreModel: NSObject {
             UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
             return
         }
+        
+        //  总收入减少
         StoreManager.shared.changeTotaleIncome(income: -needMoney)
         
         //  更新升级数据
@@ -97,10 +111,16 @@ extension StoreModel {
             view.update(model: self)
         }
         
+        //  判断是否结束
         if time >= Double(interval) {
             isOperation = false
             //  结束一轮 增加总收入
             StoreManager.shared.changeTotaleIncome(income: income)
+            //  判断是否有管理员，自动执行下一次
+            if hasManager {
+                resetCache()
+                return
+            }
             if let timer = timer {
                 timer.invalidate()
                 self.timer = nil
