@@ -34,10 +34,10 @@ class StoreManager: NSObject {
         }
     }
     
-    /// 增加总收入
+    /// 增加或减少总收入
     ///
     /// - Parameter income: 待增加收入
-    func increaseTotaleIncome(income: Int) {
+    func changeTotaleIncome(income: Int) {
         totalIncome += income
         /// 更新收入之后 通过代理把总收入更新给UI
         if let delegate = delegate {

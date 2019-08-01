@@ -17,7 +17,9 @@ class StoreModel: NSObject {
     var avatarImage = #imageLiteral(resourceName: "avatar")
     var level: Int = 0
     var interval: Int = 0
+    var originalInterval: Int = 0
     var income: Int = 0
+    var originalIncome: Int = 0
     var multiple: Int = 1
     var time: Double = 0
     var open = false
@@ -39,7 +41,9 @@ class StoreModel: NSObject {
             name = NameList[index]
             level = 1
             interval = 5 * Int(pow(2, Double(index)))
+            originalInterval = interval
             income = (index + 1) * Int(pow(2, Double(index))) * multiple
+            originalIncome = income
         }
     }
     
@@ -54,9 +58,31 @@ class StoreModel: NSObject {
         if let timer = timer {
             timer.invalidate()
         } else {
-//            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
             timer = Timer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
             RunLoop.main.add(timer!, forMode: .common)
+        }
+    }
+    
+    /// 升级
+    func upgrade() {
+        //  升级需要消耗的钱
+        let needMoney = income * Int(pow(1.2, Double(level)))
+        print("upgrade need money = \(needMoney)")
+        if StoreManager.shared.totalIncome < needMoney {
+            let alert = UIAlertController(title: "金额不足", message: "升级到\(level+1)级需要\(needMoney)金币", preferredStyle: .alert)
+            let action = UIAlertAction(title: "好的", style: .cancel, handler: nil)
+            alert.addAction(action)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+            return
+        }
+        StoreManager.shared.changeTotaleIncome(income: -needMoney)
+        
+        //  更新升级数据
+        upgradeRefresh()
+        
+        //  更新UI
+        if let view = view {
+            view.update(model: self)
         }
     }
 }
@@ -74,7 +100,7 @@ extension StoreModel {
         if time >= Double(interval) {
             isOperation = false
             //  结束一轮 增加总收入
-            StoreManager.shared.increaseTotaleIncome(income: income)
+            StoreManager.shared.changeTotaleIncome(income: income)
             if let timer = timer {
                 timer.invalidate()
                 self.timer = nil
@@ -83,7 +109,16 @@ extension StoreModel {
         }
     }
     
+    /// 恢复执行前状态
     fileprivate func resetCache() {
         time = 0
+    }
+    
+    /// 升级更新数据
+    fileprivate func upgradeRefresh() {
+        level += 1
+        income = originalIncome * level
+        let intervalMutiple = 1 / (pow(Double(level / 10), 2) + 1)
+        interval = Int(Double(originalInterval) * intervalMutiple)
     }
 }

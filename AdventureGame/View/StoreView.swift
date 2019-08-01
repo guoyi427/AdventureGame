@@ -157,7 +157,8 @@ extension StoreView {
     
     /// 升级按钮方法
     @objc fileprivate func upgradeButtonAction() {
-        
+        guard let model = storeModel else { return }
+        model.upgrade()
     }
     
     /// 执行按钮方法
