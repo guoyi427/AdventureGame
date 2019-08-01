@@ -66,7 +66,7 @@ extension GameViewController {
         for x in 0...MaxStoreIndex {
             let storeView = StoreView(frame: CGRect(x: x%2==0 ? 50 : 400, y: x/2*90, width: 300, height: 80))
             backgroundView.addSubview(storeView)
-            storeView.update(model: StoreManager.shared.getModel(index: x))
+            StoreManager.shared.setupModel(index: x, view: storeView)
         }
     }
 }

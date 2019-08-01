@@ -24,6 +24,8 @@ class StoreModel: NSObject {
     var isOperation = false
     var hasManager = false
     
+    weak var view: StoreView?
+    
     fileprivate var timer: Timer?
     
     override var description: String {
@@ -62,9 +64,15 @@ class StoreModel: NSObject {
 extension StoreModel {
     @objc
     fileprivate func updateTimerAction() {
+        //  更新进度，并更新UI
         time += 0.1
+        if let view = view {
+            view.update(model: self)
+        }
+        
         if time >= Double(interval) {
             isOperation = false
+            //  结束一轮 增加总收入
             StoreManager.shared.increaseTotaleIncome(income: income)
             if let timer = timer {
                 timer.invalidate()

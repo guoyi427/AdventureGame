@@ -26,11 +26,12 @@ class StoreManager: NSObject {
     ///
     /// - Parameter index: 下标
     /// - Returns: 商店模型
-    func getModel(index: Int) -> StoreModel {
+    func setupModel(index: Int, view: StoreView) {
         if index <= MaxStoreIndex {
-            return list[index]
+            let model = list[index]
+            model.view = view
+            view.update(model: model)
         }
-        return list[MaxStoreIndex]
     }
     
     /// 增加总收入
@@ -47,6 +48,7 @@ class StoreManager: NSObject {
 
 // MARK: - Private Methods
 extension StoreManager {
+    /// 准备数据
     fileprivate func prepareData() {
         for x in 0...MaxStoreIndex {
             let model = StoreModel(index: x)
