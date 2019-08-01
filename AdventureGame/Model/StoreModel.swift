@@ -40,7 +40,6 @@ class StoreModel: NSObject {
             level = 1
             interval = 5 * Int(pow(2, Double(index)))
             income = (index + 1) * Int(pow(2, Double(index))) * multiple
-            
         }
     }
     
@@ -55,7 +54,9 @@ class StoreModel: NSObject {
         if let timer = timer {
             timer.invalidate()
         } else {
-            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
+//            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
+            timer = Timer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
+            RunLoop.main.add(timer!, forMode: .common)
         }
     }
 }

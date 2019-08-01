@@ -54,7 +54,8 @@ class StoreView: UIView {
         levelLabel.text = "\(model.level)"
         timeLabel.text = "\(model.interval - Int(model.time))"
         
-        progressView.progress = Float(model.time) / Float(model.interval)
+        let progress = Float(model.time) / Float(model.interval)
+        progressView.progress = progress < 1 ? progress : 0
     }
 }
 
