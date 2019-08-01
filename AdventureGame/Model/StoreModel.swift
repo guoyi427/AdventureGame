@@ -8,15 +8,17 @@
 
 import UIKit
 
-fileprivate let NameList = ["Lemoned", "Bar", "Car", "Bank", "Banana", "Oil", "House", "Girls", "Boys", "Killer", "Cleaner"]
+/// 名字列表
+fileprivate let NameList = ["Lemon", "Newspaper", "Car", "Donut", "Seafood", "Sport", "Movie", "Government", "Oil"]
+fileprivate let AvatarList = [#imageLiteral(resourceName: "lemon"), #imageLiteral(resourceName: "newspaper"), #imageLiteral(resourceName: "car"), #imageLiteral(resourceName: "donut"), #imageLiteral(resourceName: "seafood"), #imageLiteral(resourceName: "sport"), #imageLiteral(resourceName: "movie"), #imageLiteral(resourceName: "government"), #imageLiteral(resourceName: "oil")]
 /// 最大下标
-let MaxStoreIndex = 10
+let MaxStoreIndex = 8
 
 class StoreModel: NSObject {
     /// 商店名称
     var name = ""
     /// 商店头像
-    var avatarImage = #imageLiteral(resourceName: "avatar")
+    var avatarImage = #imageLiteral(resourceName: "lemon")
     /// 等级
     var level: Int = 0
     /// 当前执行间隔（影响因素包含 等级、加速倍数）
@@ -54,6 +56,7 @@ class StoreModel: NSObject {
         super.init()
         if index <= MaxStoreIndex {
             name = NameList[index]
+            avatarImage = AvatarList[index]
             level = 1
             interval = 5 * Int(pow(2, Double(index)))
             originalInterval = interval
