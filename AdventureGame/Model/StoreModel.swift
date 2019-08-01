@@ -37,6 +37,9 @@ class StoreModel: NSObject {
     var isOperation = false
     /// 结束后是否自动执行下一次
     var hasManager = true
+    /// 升级需要的金币
+    var needMoney = 0
+    
     
     weak var view: StoreView?
     
@@ -56,6 +59,7 @@ class StoreModel: NSObject {
             originalInterval = interval
             income = (index + 1) * Int(pow(2, Double(index))) * multiple
             originalIncome = income
+            needMoney = income * Int(pow(1.2, Double(level)))
         }
     }
     
@@ -78,7 +82,7 @@ class StoreModel: NSObject {
     /// 升级
     func upgrade() {
         //  升级需要消耗的钱
-        let needMoney = income * Int(pow(1.2, Double(level)))
+        needMoney = income * Int(pow(1.2, Double(level)))
         //  如果金额不足弹窗提示用户
         if StoreManager.shared.totalIncome < needMoney {
             let alert = UIAlertController(title: "金额不足", message: "升级到\(level+1)级需要\(needMoney)金币", preferredStyle: .alert)
@@ -108,6 +112,8 @@ extension StoreModel {
         //  更新进度，并更新UI
         time += 0.1
         if let view = view {
+            //  升级需要消耗的钱    如果攒够钱 view需要更新按钮状态
+            needMoney = income * Int(pow(1.2, Double(level)))
             view.update(model: self)
         }
         

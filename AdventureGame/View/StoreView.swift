@@ -48,14 +48,19 @@ class StoreView: UIView {
     func update(model: StoreModel) {
         storeModel = model
         
+        //  更新基础数据
         nameLabel.text = model.name
         avatarView.image = model.avatarImage
         incomeLabel.text = "\(model.income)"
         levelLabel.text = "\(model.level)"
         timeLabel.text = "\(model.interval - Int(model.time))"
         
+        //  更新执行进度
         let progress = Float(model.time) / Float(model.interval)
         progressView.progress = progress < 1 ? progress : 0
+        
+        //  如果金币足够升级，点亮升级按钮
+        upgradeButton.layer.borderWidth = StoreManager.shared.totalIncome >= model.needMoney ? 1 : 0        
     }
 }
 
@@ -84,6 +89,8 @@ extension StoreView {
         upgradeButton.addTarget(self, action: #selector(upgradeButtonAction), for: .touchUpInside)
         upgradeButton.setTitle("升级", for: .normal)
         upgradeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        upgradeButton.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        upgradeButton.layer.borderWidth = 0
         
         addSubview(operationButton)
         operationButton.snp.makeConstraints { (make) in
