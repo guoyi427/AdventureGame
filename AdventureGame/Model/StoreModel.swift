@@ -22,9 +22,9 @@ class StoreModel: NSObject {
     /// 等级
     var level: Int = 0
     /// 当前执行间隔（影响因素包含 等级、加速倍数）
-    var interval: Int = 0
+    var interval: Double = 0
     /// 原始执行间隔
-    var originalInterval: Int = 0
+    var originalInterval: Double = 0
     /// 当前收益（影响因素包含 等级、加速倍数）
     var income: Int = 0
     /// 原始收益
@@ -60,7 +60,7 @@ class StoreModel: NSObject {
             name = NameList[index]
             avatarImage = AvatarList[index]
             level = 1
-            interval = 5 * Int(pow(2, Double(index)))
+            interval = 5 * pow(2, Double(index))
             originalInterval = interval
             income = (index + 1) * Int(pow(2, Double(index))) * multiple
             originalIncome = income
@@ -142,7 +142,7 @@ extension StoreModel {
         }
         
         //  判断是否结束
-        if time >= Double(interval) {
+        if time >= interval {
             isOperation = false
             //  结束一轮 增加总收入
             StoreManager.shared.changeTotaleIncome(income: income)
@@ -169,7 +169,7 @@ extension StoreModel {
         level += 1
         income = originalIncome * Int(pow(2, Double(level - 1)))
         let intervalMutiple = 1 / (pow(Double(level / 10), 2) + 1)
-        interval = Int(Double(originalInterval) * intervalMutiple)
+        interval = Double(originalInterval) * intervalMutiple
     }
     
     /// 计算升级所需金币
