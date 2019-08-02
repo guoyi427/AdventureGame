@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5094B4D22264CBB764F314C6 /* Pods_AdventureGameTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD451E42E7D4724A8CA90067 /* Pods_AdventureGameTests.framework */; };
+		5B2E457722F439C100A4D9F6 /* MoneyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E457622F439C100A4D9F6 /* MoneyUnit.swift */; };
 		5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B526D22F168BB003967E4 /* StoreView.swift */; };
 		5BAD56C822F19506005E3393 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD56C722F19506005E3393 /* StoreManager.swift */; };
 		5BAD56CB22F1958F005E3393 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD56CA22F1958F005E3393 /* StoreModel.swift */; };
@@ -44,6 +45,7 @@
 		422CCAE33F26E4392D5E3AF0 /* Pods_AdventureGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		515EE9D3D298A103B8A9D915 /* Pods-AdventureGameUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameUITests.debug.xcconfig"; path = "Target Support Files/Pods-AdventureGameUITests/Pods-AdventureGameUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		538521BEA1A33DC9D7B2EEBC /* Pods-AdventureGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameTests.release.xcconfig"; path = "Target Support Files/Pods-AdventureGameTests/Pods-AdventureGameTests.release.xcconfig"; sourceTree = "<group>"; };
+		5B2E457622F439C100A4D9F6 /* MoneyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyUnit.swift; sourceTree = "<group>"; };
 		5B9B526D22F168BB003967E4 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		5BAD56C722F19506005E3393 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		5BAD56CA22F1958F005E3393 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				5BAD56CA22F1958F005E3393 /* StoreModel.swift */,
+				5B2E457622F439C100A4D9F6 /* MoneyUnit.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2E457722F439C100A4D9F6 /* MoneyUnit.swift in Sources */,
 				5BDC0EA622E98C260050F9C8 /* GameViewController.swift in Sources */,
 				5BAD56C822F19506005E3393 /* StoreManager.swift in Sources */,
 				5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */,

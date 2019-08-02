@@ -76,7 +76,7 @@ extension GameViewController: StoreManagerDelegate {
     /// 更新总收入
     ///
     /// - Parameter income: 总收入
-    func didUpdateTotalIncome(income: Int) {
-        totalIncomeLabel.text = "\(income)"
+    func didUpdateTotalIncome(income: MoneyUnit) {
+        totalIncomeLabel.text = income.text()
     }
 }

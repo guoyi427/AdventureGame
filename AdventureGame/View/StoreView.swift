@@ -53,7 +53,7 @@ class StoreView: UIView {
         //  更新基础数据
         nameLabel.text = model.name
         avatarView.image = model.avatarImage
-        incomeLabel.text = "\(model.income)"
+        incomeLabel.text = model.income.text()
         levelLabel.text = "\(model.level)"
         
         //  剩余时间

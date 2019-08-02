@@ -1,0 +1,132 @@
+//
+//  MoneyUnit.swift
+//  AdventureGame
+//
+//  Created by Gray on 8/2/19.
+//  Copyright © 2019 Gray. All rights reserved.
+//
+
+import Foundation
+
+/// 倍数最大差 超过这个差值的两个数字 计算忽略不计
+private let MaxMultipleDiffer = 5
+/// 倍数因子
+private let MultipleFactor = 1000
+
+private let textList = ["", "a", "b", "c", "d", "e", "f", "g"]
+
+struct MoneyUnit {
+    var number: Double
+    var multiple: Int
+    
+    static var zero: MoneyUnit {
+        return MoneyUnit(number: 0, multiple: 0)
+    }
+
+    /// 生成文字
+    ///
+    /// - Returns: 文字
+    func text() -> String {
+        return String(format: "%.2f%@", number, textList[multiple])
+    }
+    
+    /// 根据一个int 生成一个MoneyUnit
+    ///
+    /// - Parameter income: int值
+    /// - Returns: MoneyUnit
+    static func creatIncome(income: Int) -> MoneyUnit {
+        var value = income
+        var n = 0
+        while value >= MultipleFactor {
+            n += 1
+            value = value % MultipleFactor
+        }
+        return MoneyUnit(number: Double(value), multiple: n)
+    }
+    
+    /// 运算符
+    static func < (left: MoneyUnit, right: MoneyUnit) -> Bool {
+        if left.multiple == right.multiple {
+            return left.number < right.number
+        } else {
+            return left.multiple < right.multiple
+        }
+    }
+    
+    static func <= (left: MoneyUnit, right: MoneyUnit) -> Bool {
+        if left.multiple == right.multiple {
+            return left.number <= right.number
+        } else {
+            return left.multiple <= right.multiple
+        }
+    }
+    
+    static func > (left: MoneyUnit, right: MoneyUnit) -> Bool {
+        if left.multiple == right.multiple {
+            return left.number > right.number
+        } else {
+            return left.multiple > right.multiple
+        }
+    }
+    
+    static func >= (left: MoneyUnit, right: MoneyUnit) -> Bool {
+        if left.multiple == right.multiple {
+            return left.number >= right.number
+        } else {
+            return left.multiple >= right.multiple
+        }
+    }
+    
+    static func == (left: MoneyUnit, right: MoneyUnit) -> Bool {
+        if left.multiple == right.multiple {
+            return left.number == right.number
+        } else {
+            return false
+        }
+    }
+    
+    static prefix func - (money: MoneyUnit) -> MoneyUnit {
+        return MoneyUnit(number: -money.number, multiple: money.multiple)
+    }
+    
+    static func + (left: MoneyUnit, right: MoneyUnit) -> MoneyUnit {
+        let differ = abs(left.multiple - right.multiple)
+        let leftBigger = left > right
+        
+        //  超过这个差值的两个数字 计算忽略不计 返回更大值
+        if differ > MaxMultipleDiffer {
+            return leftBigger ? left : right
+        }
+        
+        if leftBigger {
+            let leftNumber = left.number * pow(Double(MultipleFactor), Double(differ))
+            let newNumber = (leftNumber + right.number) / pow(Double(MultipleFactor), Double(differ))
+            return MoneyUnit(number: newNumber, multiple: left.multiple)
+        } else {
+            let rightNumber = right.number * pow(Double(MultipleFactor), Double(differ))
+            let newNumber = (rightNumber + left.number) / pow(Double(MultipleFactor), Double(differ))
+            return MoneyUnit(number: newNumber, multiple: right.multiple)
+        }
+    }
+    
+    static func += (left: inout MoneyUnit, right: MoneyUnit) {
+        left = left + right
+        var n = left.multiple
+        var value = left.number
+        while value >= Double(MultipleFactor) {
+            value = Double(Int(value) % MultipleFactor)
+            n += 1
+        }
+        left = MoneyUnit(number: value, multiple: n)
+    }
+    
+    static func * (left: MoneyUnit, right: MoneyUnit) -> MoneyUnit {
+        var n = left.multiple + right.multiple
+        var value = left.number * right.number
+        while Int(value) >= MultipleFactor {
+            value = Double(Int(value) % MultipleFactor)
+            n += 1
+        }
+        return MoneyUnit(number: Double(value), multiple: n)
+    }
+}

@@ -12,7 +12,7 @@ class StoreManager: NSObject {
     static let shared = StoreManager()
     
     /// 总收入
-    var totalIncome = 0
+    var totalIncome: MoneyUnit = MoneyUnit.zero
     weak var delegate: StoreManagerDelegate?
     
     fileprivate var list: [StoreModel] = []
@@ -37,7 +37,7 @@ class StoreManager: NSObject {
     /// 增加或减少总收入
     ///
     /// - Parameter income: 待增加收入
-    func changeTotaleIncome(income: Int) {
+    func changeTotaleIncome(income: MoneyUnit) {
         totalIncome += income
         /// 更新收入之后 通过代理把总收入更新给UI
         if let delegate = delegate {
@@ -67,5 +67,5 @@ protocol StoreManagerDelegate: NSObject {
     /// 总收入更新
     ///
     /// - Parameter income: 总收入
-    func didUpdateTotalIncome(income: Int)
+    func didUpdateTotalIncome(income: MoneyUnit)
 }
