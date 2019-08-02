@@ -40,7 +40,9 @@ class StoreModel: NSObject {
     /// 结束后是否自动执行下一次
     var hasManager = true
     /// 升级需要的金币
-    var needMoney = 0
+    var upgradeMoney = 0
+    /// 解锁需要的金币
+    var unlockMoney = 0
     
     
     weak var view: StoreView?
@@ -62,6 +64,9 @@ class StoreModel: NSObject {
             originalInterval = interval
             income = (index + 1) * Int(pow(2, Double(index))) * multiple
             originalIncome = income
+            //  如果是第一个店铺 默认解锁
+            isUnlock = index == 0
+            unlockMoney = originalIncome
             calculateUpgradeNeedMoney()
         }
     }
@@ -85,8 +90,8 @@ class StoreModel: NSObject {
         //  升级需要消耗的钱
         calculateUpgradeNeedMoney()
         //  如果金额不足弹窗提示用户
-        if StoreManager.shared.totalIncome < needMoney {
-            let alert = UIAlertController(title: "金额不足", message: "升级到\(level+1)级需要\(needMoney)金币", preferredStyle: .alert)
+        if StoreManager.shared.totalIncome < upgradeMoney {
+            let alert = UIAlertController(title: "金额不足", message: "升级到\(level+1)级需要\(upgradeMoney)金币", preferredStyle: .alert)
             let action = UIAlertAction(title: "好的", style: .cancel, handler: nil)
             alert.addAction(action)
             UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
@@ -94,7 +99,7 @@ class StoreModel: NSObject {
         }
         
         //  总收入减少
-        StoreManager.shared.changeTotaleIncome(income: -needMoney)
+        StoreManager.shared.changeTotaleIncome(income: -upgradeMoney)
         
         //  更新升级数据
         upgradeRefresh()
@@ -102,6 +107,24 @@ class StoreModel: NSObject {
         //  更新UI
         if let view = view {
             view.update(model: self)
+        }
+    }
+    
+    /// 解锁商店
+    func unlockStore() {
+        if isUnlock {
+            return
+        }
+        
+        if StoreManager.shared.totalIncome >= unlockMoney {
+            isUnlock = true
+            StoreManager.shared.changeTotaleIncome(income: -unlockMoney)
+        } else {
+            //  钱不够
+            let alert = UIAlertController(title: "金额不足", message: "解锁\(name)需要\(unlockMoney)金币", preferredStyle: .alert)
+            let action = UIAlertAction(title: "好的", style: .cancel, handler: nil)
+            alert.addAction(action)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -151,6 +174,6 @@ extension StoreModel {
     
     /// 计算升级所需金币
     fileprivate func calculateUpgradeNeedMoney() {
-        needMoney = income * Int(pow(1.2, Double(level)))
+        upgradeMoney = income * Int(pow(1.2, Double(level)))
     }
 }

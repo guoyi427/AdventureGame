@@ -12,6 +12,7 @@ class StoreView: UIView {
     
     fileprivate let upgradeButton: UIButton
     fileprivate let operationButton: UIButton
+    fileprivate let unlockButton: UIButton
     
     fileprivate let contentView: UIView
     fileprivate let avatarView: UIImageView
@@ -27,6 +28,7 @@ class StoreView: UIView {
     override init(frame: CGRect) {
         upgradeButton = UIButton(type: .custom)
         operationButton = UIButton(type: .custom)
+        unlockButton = UIButton(type: .custom)
         
         contentView = UIView(frame: CGRect.zero)
         avatarView = UIImageView(frame: CGRect.zero)
@@ -63,7 +65,12 @@ class StoreView: UIView {
         progressView.progress = progress < 1 ? progress : 0
         
         //  如果金币足够升级，点亮升级按钮
-        upgradeButton.layer.borderWidth = StoreManager.shared.totalIncome >= model.needMoney ? 1 : 0        
+        upgradeButton.layer.borderWidth = StoreManager.shared.totalIncome >= model.upgradeMoney ? 2 : 0
+        
+        contentView.isHidden = !model.isUnlock
+        upgradeButton.isHidden = !model.isUnlock
+        operationButton.isHidden = !model.isUnlock
+        unlockButton.isHidden = model.isUnlock
     }
 }
 
@@ -104,6 +111,17 @@ extension StoreView {
         operationButton.addTarget(self, action: #selector(operationButtonAction), for: .touchUpInside)
         operationButton.setTitle("执行", for: .normal)
         operationButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        
+        addSubview(unlockButton)
+        unlockButton.snp.makeConstraints { (make) in
+            make.center.equalTo(self.snp.center)
+            make.size.equalTo(CGSize(width: 100, height: 50))
+        }
+        unlockButton.addTarget(self, action: #selector(unlockButtonAction), for: .touchUpInside)
+        unlockButton.setTitle("解锁店铺", for: .normal)
+        unlockButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        unlockButton.layer.borderColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        unlockButton.layer.borderWidth = 0
     }
     
     fileprivate func prepareContentView() {
@@ -175,5 +193,14 @@ extension StoreView {
     @objc fileprivate func operationButtonAction() {
         guard let model = storeModel else { return }
         model.operation()
+    }
+    
+    /// 解锁商店方法
+    @objc fileprivate func unlockButtonAction() {
+        guard let model = storeModel else { return }
+        if !model.isUnlock {
+            model.unlockStore()
+            self.update(model: model)
+        }
     }
 }

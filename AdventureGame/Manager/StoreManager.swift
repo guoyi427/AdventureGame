@@ -12,7 +12,7 @@ class StoreManager: NSObject {
     static let shared = StoreManager()
     
     /// 总收入
-    var totalIncome = 10000000000
+    var totalIncome = 0
     weak var delegate: StoreManagerDelegate?
     
     fileprivate var list: [StoreModel] = []
