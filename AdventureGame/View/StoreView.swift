@@ -53,7 +53,10 @@ class StoreView: UIView {
         avatarView.image = model.avatarImage
         incomeLabel.text = "\(model.income)"
         levelLabel.text = "\(model.level)"
-        timeLabel.text = "\(model.interval - Int(model.time))"
+        
+        //  剩余时间
+        let time = model.interval - Int(model.time)
+        timeLabel.text = "\(time >= 0 ? time : 0)"
         
         //  更新执行进度
         let progress = Float(model.time) / Float(model.interval)

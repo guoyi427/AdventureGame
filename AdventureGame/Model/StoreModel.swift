@@ -146,7 +146,7 @@ extension StoreModel {
     /// 升级更新数据
     fileprivate func upgradeRefresh() {
         level += 1
-        income = originalIncome * level
+        income = originalIncome * Int(pow(2, Double(level - 1)))
         let intervalMutiple = 1 / (pow(Double(level / 10), 2) + 1)
         interval = Int(Double(originalInterval) * intervalMutiple)
     }
