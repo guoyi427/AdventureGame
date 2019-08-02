@@ -11,7 +11,7 @@ import Foundation
 /// 倍数最大差 超过这个差值的两个数字 计算忽略不计
 private let MaxMultipleDiffer = 5
 /// 倍数因子
-private let MultipleFactor = 1000
+private let MultipleFactor: Double = 1000
 
 private let textList = ["", "a", "b", "c", "d", "e", "f", "g"]
 
@@ -34,14 +34,14 @@ struct MoneyUnit {
     ///
     /// - Parameter income: int值
     /// - Returns: MoneyUnit
-    static func creatIncome(income: Int) -> MoneyUnit {
+    static func creatIncome(income: Double) -> MoneyUnit {
         var value = income
         var n = 0
         while value >= MultipleFactor {
             n += 1
-            value = value % MultipleFactor
+            value = value / MultipleFactor
         }
-        return MoneyUnit(number: Double(value), multiple: n)
+        return MoneyUnit(number: value, multiple: n)
     }
     
     /// 运算符
@@ -113,8 +113,8 @@ struct MoneyUnit {
         left = left + right
         var n = left.multiple
         var value = left.number
-        while value >= Double(MultipleFactor) {
-            value = Double(Int(value) % MultipleFactor)
+        while value >= MultipleFactor {
+            value = value / MultipleFactor
             n += 1
         }
         left = MoneyUnit(number: value, multiple: n)
@@ -123,8 +123,8 @@ struct MoneyUnit {
     static func * (left: MoneyUnit, right: MoneyUnit) -> MoneyUnit {
         var n = left.multiple + right.multiple
         var value = left.number * right.number
-        while Int(value) >= MultipleFactor {
-            value = Double(Int(value) % MultipleFactor)
+        while value >= MultipleFactor {
+            value = value / MultipleFactor
             n += 1
         }
         return MoneyUnit(number: Double(value), multiple: n)

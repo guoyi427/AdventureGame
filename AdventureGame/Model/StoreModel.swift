@@ -30,7 +30,7 @@ class StoreModel: NSObject {
     /// 原始收益
     var originalIncome: MoneyUnit = MoneyUnit.zero
     /// 收益加速倍数
-    var multiple: Int = 1
+    var multiple: Double = 1
     /// 当前执行时间
     var time: Double = 0
     /// 是否被解锁
@@ -62,8 +62,7 @@ class StoreModel: NSObject {
             level = 1
             interval = 5 * pow(2, Double(index))
             originalInterval = interval
-            let intIncome = (index + 1) * Int(pow(2, Double(index))) * multiple
-            income = MoneyUnit.creatIncome(income: intIncome)
+            income = MoneyUnit.creatIncome(income: Double(index + 1) * pow(2, Double(index)) * multiple)
             originalIncome = income
             //  如果是第一个店铺 默认解锁
             isUnlock = index == 0
@@ -168,13 +167,13 @@ extension StoreModel {
     /// 升级更新数据
     fileprivate func upgradeRefresh() {
         level += 1
-        income = originalIncome * MoneyUnit.creatIncome(income: Int(pow(2, Double(level - 1))))
+        income = originalIncome * MoneyUnit.creatIncome(income: pow(2, Double(level - 1)))
         let intervalMutiple = 1 / (pow(Double(level / 10), 2) + 1)
         interval = Double(originalInterval) * intervalMutiple
     }
     
     /// 计算升级所需金币
     fileprivate func calculateUpgradeNeedMoney() {
-        upgradeMoney = income * MoneyUnit.creatIncome(income: Int(pow(1.2, Double(level))))
+        upgradeMoney = income * MoneyUnit.creatIncome(income: pow(1.2, Double(level)))
     }
 }
