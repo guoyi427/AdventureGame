@@ -62,7 +62,7 @@ class StoreModel: NSObject {
             originalInterval = interval
             income = (index + 1) * Int(pow(2, Double(index))) * multiple
             originalIncome = income
-            needMoney = income * Int(pow(1.2, Double(level)))
+            calculateUpgradeNeedMoney()
         }
     }
     
@@ -74,9 +74,7 @@ class StoreModel: NSObject {
         
         isOperation = true
         
-        if let timer = timer {
-            timer.invalidate()
-        } else {
+        if timer == nil {
             timer = Timer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
             RunLoop.main.add(timer!, forMode: .common)
         }
@@ -85,7 +83,7 @@ class StoreModel: NSObject {
     /// 升级
     func upgrade() {
         //  升级需要消耗的钱
-        needMoney = income * Int(pow(1.2, Double(level)))
+        calculateUpgradeNeedMoney()
         //  如果金额不足弹窗提示用户
         if StoreManager.shared.totalIncome < needMoney {
             let alert = UIAlertController(title: "金额不足", message: "升级到\(level+1)级需要\(needMoney)金币", preferredStyle: .alert)
@@ -116,7 +114,7 @@ extension StoreModel {
         time += 0.1
         if let view = view {
             //  升级需要消耗的钱    如果攒够钱 view需要更新按钮状态
-            needMoney = income * Int(pow(1.2, Double(level)))
+            calculateUpgradeNeedMoney()
             view.update(model: self)
         }
         
@@ -149,5 +147,10 @@ extension StoreModel {
         income = originalIncome * Int(pow(2, Double(level - 1)))
         let intervalMutiple = 1 / (pow(Double(level / 10), 2) + 1)
         interval = Int(Double(originalInterval) * intervalMutiple)
+    }
+    
+    /// 计算升级所需金币
+    fileprivate func calculateUpgradeNeedMoney() {
+        needMoney = income * Int(pow(1.2, Double(level)))
     }
 }
