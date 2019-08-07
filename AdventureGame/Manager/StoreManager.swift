@@ -15,7 +15,7 @@ class StoreManager: NSObject {
     var totalIncome: MoneyUnit = MoneyUnit.zero
     weak var delegate: StoreManagerDelegate?
     
-    fileprivate var list: [StoreModel] = []
+    var list: [StoreModel] = []
     
     override init() {
         super.init()
