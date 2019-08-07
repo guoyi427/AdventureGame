@@ -45,11 +45,15 @@ struct MoneyUnit {
     }
     
     /// 运算符
+    /// 小于
     static func < (left: MoneyUnit, right: MoneyUnit) -> Bool {
         if left.multiple == right.multiple {
+            //  倍数相同
             return left.number < right.number
         } else {
-            return left.multiple < right.multiple
+            let leftSign = left.number > 0 ? 1 : -1
+            let rightSign = right.number > 0 ? 1 : -1
+            return left.multiple * leftSign < right.multiple * rightSign
         }
     }
     
@@ -57,7 +61,9 @@ struct MoneyUnit {
         if left.multiple == right.multiple {
             return left.number <= right.number
         } else {
-            return left.multiple <= right.multiple
+            let leftSign = left.number > 0 ? 1 : -1
+            let rightSign = right.number > 0 ? 1 : -1
+            return left.multiple * leftSign <= right.multiple * rightSign
         }
     }
     
@@ -65,7 +71,9 @@ struct MoneyUnit {
         if left.multiple == right.multiple {
             return left.number > right.number
         } else {
-            return left.multiple > right.multiple
+            let leftSign = left.number > 0 ? 1 : -1
+            let rightSign = right.number > 0 ? 1 : -1
+            return left.multiple * leftSign > right.multiple * rightSign
         }
     }
     
@@ -73,7 +81,9 @@ struct MoneyUnit {
         if left.multiple == right.multiple {
             return left.number >= right.number
         } else {
-            return left.multiple >= right.multiple
+            let leftSign = left.number > 0 ? 1 : -1
+            let rightSign = right.number > 0 ? 1 : -1
+            return left.multiple * leftSign >= right.multiple * rightSign
         }
     }
     

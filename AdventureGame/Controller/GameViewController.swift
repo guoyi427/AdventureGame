@@ -49,7 +49,7 @@ extension GameViewController {
             make.left.right.bottom.equalTo(0)
             make.top.equalTo(50)
         }
-        backgroundView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 2)
+        backgroundView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 470)
         backgroundView.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
         
         //  总收入
@@ -64,7 +64,7 @@ extension GameViewController {
         
         //  商店
         for x in 0...MaxStoreIndex {
-            let storeView = StoreView(frame: CGRect(x: x%2==0 ? 50 : 400, y: x/2*90, width: 300, height: 80))
+            let storeView = StoreView(frame: CGRect(x: x%2==0 ? 50 : 400, y: x/2*90 + 10, width: 300, height: 80))
             backgroundView.addSubview(storeView)
             StoreManager.shared.setupModel(index: x, view: storeView)
         }
