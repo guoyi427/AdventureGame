@@ -12,6 +12,7 @@ import SQLite3
 class DBManager: NSObject {
     static let shared = DBManager()
     
+    
     override init() {
         super.init()
         

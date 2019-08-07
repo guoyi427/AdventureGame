@@ -44,6 +44,17 @@ struct MoneyUnit {
         return MoneyUnit(number: value, multiple: n)
     }
     
+    mutating func lowerMultiple() {
+        if self.number < 1 {
+            self.number = self.number * Double(multiple)
+            self.multiple -= 1
+        }
+        
+        if self.number < 1 {
+            self.lowerMultiple()
+        }
+    }
+    
     /// 运算符
     /// 小于
     static func < (left: MoneyUnit, right: MoneyUnit) -> Bool {

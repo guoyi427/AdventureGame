@@ -39,6 +39,10 @@ class StoreManager: NSObject {
     /// - Parameter income: 待增加收入
     func changeTotaleIncome(income: MoneyUnit) {
         totalIncome += income
+        
+        //  计算进位
+        totalIncome.lowerMultiple()
+        
         /// 更新收入之后 通过代理把总收入更新给UI
         if let delegate = delegate {
             delegate.didUpdateTotalIncome(income: totalIncome)
