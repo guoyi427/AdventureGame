@@ -45,12 +45,12 @@ struct MoneyUnit {
     }
     
     mutating func lowerMultiple() {
-        if self.number < 1 {
-            self.number = self.number * Double(multiple)
+        if self.number < 1, self.multiple > 0 {
+            self.number = self.number * MultipleFactor
             self.multiple -= 1
         }
         
-        if self.number < 1 {
+        if self.number < 1, self.multiple > 0 {
             self.lowerMultiple()
         }
     }

@@ -28,41 +28,70 @@ class DBManager: NSObject {
     
     func saveAllStore() {
         guard let db = db else { return }
-        let sqlStr = "insert into Store (name, avatar_name, level, interval, original_interval, income_number, income_multiple, original_income_number, original_income_multiple, multiple, time, isUnlock, isOperation, hasManager, upgradeMoney_number, upgradeMoney_multiple, unlockMoney_number, unlockMoney_multiple) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        let insertSqlStr = "insert into Store (sid, level, interval, original_interval, income_number, income_multiple, original_income_number, original_income_multiple, multiple, time, isUnlock, isOperation, hasManager, upgradeMoney_number, upgradeMoney_multiple, unlockMoney_number, unlockMoney_multiple) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+
         for model in StoreManager.shared.list {
-            var statement: OpaquePointer?
-            let result = sqlite3_prepare_v2(db, sqlStr, -1, &statement, nil)
-            if result != SQLITE_OK {
-                sqlite3_finalize(statement)
+            //  判断本地是否已经存在这个模型
+            let selectSqlStr = "select id from Store where sid = \(model.sid)"
+            var selectStatement: OpaquePointer?
+            let selectResult = sqlite3_prepare_v2(db, selectSqlStr, -1, &selectStatement, nil)
+            if selectResult != SQLITE_OK {
+                sqlite3_finalize(selectStatement)
+                print("select \(model.name) failure")
+                return
+            }
+            
+            if sqlite3_step(selectStatement) == SQLITE_ROW {
+                //  找到了 更新后退出
+                let idNumber = sqlite3_column_int(selectStatement, 0)
+                print("\(model.name) id = \(idNumber) is find")
+                //  更新
+                let updateSqlStr = "update Store set level = \(model.level), interval = \(model.interval), income_number = \(model.income.number), income_multiple = \(model.income.multiple), multiple = \(model.multiple), time = \(model.time), isUnlock = \(model.isUnlock), isOperation = \(model.isOperation), hasManager = \(model.hasManager), upgradeMoney_number = \(model.upgradeMoney.number), upgradeMoney_multiple = \(model.upgradeMoney.multiple) where sid = \(model.sid)"
+                var updateStatement: OpaquePointer?
+                let updateResult = sqlite3_prepare_v2(db, updateSqlStr, -1, &updateStatement, nil)
+                if updateResult == SQLITE_OK, sqlite3_step(updateStatement) == SQLITE_DONE {
+                    print("update \(model.name) done")
+                }
+                sqlite3_finalize(updateStatement)
+                sqlite3_finalize(selectStatement)
+                continue
+            }
+            sqlite3_finalize(selectStatement)
+            
+            //  插入
+            var insertStatement: OpaquePointer?
+            let insertResult = sqlite3_prepare_v2(db, insertSqlStr, -1, &insertStatement, nil)
+            if insertResult != SQLITE_OK {
+                sqlite3_finalize(insertStatement)
                 print("insert store error")
+                return
             }
             
-            sqlite3_bind_text(statement, 1, model.name, -1, nil)
-            sqlite3_bind_text(statement, 2, model.name, -1, nil)
-            sqlite3_bind_int(statement, 3, Int32(model.level))
-            sqlite3_bind_double(statement, 4, model.interval)
-            sqlite3_bind_double(statement, 5, model.originalInterval)
-            sqlite3_bind_double(statement, 6, model.income.number)
-            sqlite3_bind_int(statement, 7, Int32(model.income.multiple))
-            sqlite3_bind_double(statement, 8, model.originalIncome.number)
-            sqlite3_bind_int(statement, 9, Int32(model.originalIncome.multiple))
-            sqlite3_bind_double(statement, 10, model.multiple)
-            sqlite3_bind_double(statement, 11, model.time)
-            sqlite3_bind_int(statement, 12, model.isUnlock ? 1 : 0)
-            sqlite3_bind_int(statement, 13, model.isOperation ? 1 : 0)
-            sqlite3_bind_int(statement, 14, model.hasManager ? 1 : 0)
-            sqlite3_bind_double(statement, 15, model.upgradeMoney.number)
-            sqlite3_bind_int(statement, 16, Int32(model.upgradeMoney.multiple))
-            sqlite3_bind_double(statement, 17, model.unlockMoney.number)
-            sqlite3_bind_int(statement, 18, Int32(model.unlockMoney.multiple))
+            sqlite3_bind_int(insertStatement, 1, Int32(model.sid))
+            sqlite3_bind_int(insertStatement, 2, Int32(model.level))
+            sqlite3_bind_double(insertStatement, 3, model.interval)
+            sqlite3_bind_double(insertStatement, 4, model.originalInterval)
+            sqlite3_bind_double(insertStatement, 5, model.income.number)
+            sqlite3_bind_int(insertStatement, 6, Int32(model.income.multiple))
+            sqlite3_bind_double(insertStatement, 7, model.originalIncome.number)
+            sqlite3_bind_int(insertStatement, 8, Int32(model.originalIncome.multiple))
+            sqlite3_bind_double(insertStatement, 9, model.multiple)
+            sqlite3_bind_double(insertStatement, 10, model.time)
+            sqlite3_bind_int(insertStatement, 11, model.isUnlock ? 1 : 0)
+            sqlite3_bind_int(insertStatement, 12, model.isOperation ? 1 : 0)
+            sqlite3_bind_int(insertStatement, 13, model.hasManager ? 1 : 0)
+            sqlite3_bind_double(insertStatement, 14, model.upgradeMoney.number)
+            sqlite3_bind_int(insertStatement, 15, Int32(model.upgradeMoney.multiple))
+            sqlite3_bind_double(insertStatement, 16, model.unlockMoney.number)
+            sqlite3_bind_int(insertStatement, 17, Int32(model.unlockMoney.multiple))
             
-            if sqlite3_step(statement) == SQLITE_DONE {
-                print("insert store done")
+            if sqlite3_step(insertStatement) == SQLITE_DONE {
+                print("insert \(model.name) done")
             } else {
-                print("insert store failed")
+                print("insert \(model.name) failed")
             }
             
-            sqlite3_finalize(statement)
+            sqlite3_finalize(insertStatement)
         }
     }
     
@@ -80,26 +109,29 @@ class DBManager: NSObject {
         
         while sqlite3_step(statement) == SQLITE_ROW {
             let model = StoreModel()
-            model.name = String(cString: sqlite3_column_text(statement, 1))
-            model.level = Int(sqlite3_column_int(statement, 3))
-            model.interval = sqlite3_column_double(statement, 4)
-            model.originalInterval = sqlite3_column_double(statement, 5)
-            let incomeNumber = sqlite3_column_double(statement, 6)
-            let incomeMultiple = sqlite3_column_int(statement, 7)
+            model.sid = Int(sqlite3_column_int(statement, 1))
+            if model.sid < NameList.count {
+                model.name = NameList[model.sid]
+            }
+            model.level = Int(sqlite3_column_int(statement, 2))
+            model.interval = sqlite3_column_double(statement, 3)
+            model.originalInterval = sqlite3_column_double(statement, 4)
+            let incomeNumber = sqlite3_column_double(statement, 5)
+            let incomeMultiple = sqlite3_column_int(statement, 6)
             model.income = MoneyUnit(number: incomeNumber, multiple: Int(incomeMultiple))
-            let originalIncomeNumber = sqlite3_column_double(statement, 8)
-            let originalIncomeMultiple = sqlite3_column_int(statement, 9)
+            let originalIncomeNumber = sqlite3_column_double(statement, 7)
+            let originalIncomeMultiple = sqlite3_column_int(statement, 8)
             model.originalIncome = MoneyUnit(number: originalIncomeNumber, multiple: Int(originalIncomeMultiple))
-            model.multiple = sqlite3_column_double(statement, 10)
-            model.time = sqlite3_column_double(statement, 11)
-            model.isUnlock = sqlite3_column_int(statement, 12) == 1 ? true : false
-            model.isOperation = sqlite3_column_int(statement, 13) == 1 ? true : false
-            model.hasManager = sqlite3_column_int(statement, 14) == 1 ? true : false
-            let upgradeMoneyNumber = sqlite3_column_double(statement, 15)
-            let upgradeMoneyMultiple = sqlite3_column_int(statement, 16)
+            model.multiple = sqlite3_column_double(statement, 9)
+            model.time = sqlite3_column_double(statement, 10)
+            model.isUnlock = sqlite3_column_int(statement, 11) == 1 ? true : false
+            model.isOperation = sqlite3_column_int(statement, 12) == 1 ? true : false
+            model.hasManager = sqlite3_column_int(statement, 13) == 1 ? true : false
+            let upgradeMoneyNumber = sqlite3_column_double(statement, 14)
+            let upgradeMoneyMultiple = sqlite3_column_int(statement, 15)
             model.upgradeMoney = MoneyUnit(number: upgradeMoneyNumber, multiple: Int(upgradeMoneyMultiple))
-            let unlockMoneyNumber = sqlite3_column_double(statement, 17)
-            let unlockMoneyMultiple = sqlite3_column_int(statement, 18)
+            let unlockMoneyNumber = sqlite3_column_double(statement, 16)
+            let unlockMoneyMultiple = sqlite3_column_int(statement, 17)
             model.unlockMoney = MoneyUnit(number: unlockMoneyNumber, multiple: Int(unlockMoneyMultiple))
             list.append(model)
         }

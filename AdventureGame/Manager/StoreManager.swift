@@ -22,6 +22,15 @@ class StoreManager: NSObject {
         prepareData()
     }
     
+    /// 从数据库中准备商店数据
+    func prepareListFromDB() {
+        let listFromDB = DBManager.shared.queryStoreList()
+        if listFromDB.count > 0 {
+            list.removeAll()
+            list.append(contentsOf: listFromDB)
+        }
+    }
+    
     /// 根据下标获取商店模型
     ///
     /// - Parameter index: 下标
@@ -54,9 +63,15 @@ class StoreManager: NSObject {
 extension StoreManager {
     /// 准备数据
     fileprivate func prepareData() {
-        for x in 0...MaxStoreIndex {
-            let model = StoreModel(index: x)
-            list.append(model)
+        list.removeAll()
+        let listFromDB = DBManager.shared.queryStoreList()
+        if listFromDB.count > 0 {
+            list.append(contentsOf: listFromDB)
+        } else {
+            for x in 0...MaxStoreIndex {
+                let model = StoreModel(index: x)
+                list.append(model)
+            }
         }
     }
     
