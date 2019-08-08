@@ -31,4 +31,14 @@ class AdventureGameTests: XCTestCase {
         }
     }
 
+    func testDBManager() {
+        
+        let list2 = DBManager.shared.queryStoreList()
+        print(list2)
+        
+        DBManager.shared.saveAllStore()
+        
+        let list = DBManager.shared.queryStoreList()
+        print(list)
+    }
 }
