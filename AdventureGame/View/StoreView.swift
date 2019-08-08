@@ -71,6 +71,10 @@ class StoreView: UIView {
         upgradeButton.isHidden = !model.isUnlock
         operationButton.isHidden = !model.isUnlock
         unlockButton.isHidden = model.isUnlock
+        
+        if model.isOperation {
+            model.operation()
+        }
     }
 }
 

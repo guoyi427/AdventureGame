@@ -88,7 +88,7 @@ class DBManager: NSObject {
             if sqlite3_step(insertStatement) == SQLITE_DONE {
                 print("insert \(model.name) done")
             } else {
-                print("insert \(model.name) failed")
+                print("insert \(model.name) failed \(String(describing: sqlite3_errmsg(db)))")
             }
             
             sqlite3_finalize(insertStatement)
