@@ -80,11 +80,10 @@ class StoreModel: NSObject {
     
     /// 执行
     func operation() {
-        if isOperation {
+        self.isOperation = true
+        if timer != nil {
             return
         }
-        
-        isOperation = true
         
         if timer == nil {
             timer = Timer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
@@ -142,12 +141,12 @@ extension StoreModel {
     fileprivate func updateTimerAction() {
         //  更新进度，并更新UI
         time += 0.1
+        isOperation = true
         if let view = view {
             //  升级需要消耗的钱    如果攒够钱 view需要更新按钮状态
             calculateUpgradeNeedMoney()
             view.update(model: self)
         }
-        
         //  判断是否结束
         if time >= interval {
             isOperation = false

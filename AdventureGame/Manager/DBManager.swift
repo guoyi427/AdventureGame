@@ -16,13 +16,22 @@ class DBManager: NSObject {
     
     override init() {
         super.init()
-        let path = Bundle.main.path(forResource: "AdventureGame", ofType: "db")
-        let state = sqlite3_open_v2(path, &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, nil)
+        guard let path = Bundle.main.path(forResource: "AdventureGame", ofType: "db") else { return }
+        //  复制到沙盒
+        guard let pathPrefix = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else { return }
+        let cachePath = pathPrefix + "/AdventureGame.db"
+        let fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: cachePath) {
+            do {
+                try fileManager.copyItem(atPath: path, toPath: cachePath)
+            } catch {
+                print("copy failure")
+            }
+        }
+        
+        let state = sqlite3_open_v2(cachePath, &db, SQLITE_OPEN_READWRITE, nil)
         if state != SQLITE_OK {
             print("open db failed")
-        }
-        if let path = path {
-            print("db path", path)
         }
     }
     
@@ -85,10 +94,11 @@ class DBManager: NSObject {
             sqlite3_bind_double(insertStatement, 16, model.unlockMoney.number)
             sqlite3_bind_int(insertStatement, 17, Int32(model.unlockMoney.multiple))
             
-            if sqlite3_step(insertStatement) == SQLITE_DONE {
+            let insertStep = sqlite3_step(insertStatement)
+            if insertStep == SQLITE_DONE {
                 print("insert \(model.name) done")
             } else {
-                print("insert \(model.name) failed \(String(describing: sqlite3_errmsg(db)))")
+                print("insert \(model.name) failed \(String(describing: sqlite3_errmsg(db))) result = \(insertStep)")
             }
             
             sqlite3_finalize(insertStatement)
