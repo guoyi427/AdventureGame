@@ -9,10 +9,10 @@
 import Foundation
 import SQLite3
 
-class DBManager: NSObject {
-    static let shared = DBManager()
+class StoreDBManager: NSObject {
+    static let shared = StoreDBManager()
     
-    fileprivate var db: OpaquePointer?
+    var db: OpaquePointer?
     
     override init() {
         super.init()

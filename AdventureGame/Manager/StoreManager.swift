@@ -13,6 +13,12 @@ class StoreManager: NSObject {
     
     /// 总收入
     var totalIncome: MoneyUnit = MoneyUnit.zero
+    var multiple = 1
+    var circle = 1
+    var diamonds = 0
+    
+    
+    
     weak var delegate: StoreManagerDelegate?
     
     var list: [StoreModel] = []
@@ -24,7 +30,7 @@ class StoreManager: NSObject {
     
     /// 从数据库中准备商店数据
     func prepareListFromDB() {
-        let listFromDB = DBManager.shared.queryStoreList()
+        let listFromDB = StoreDBManager.shared.queryStoreList()
         if listFromDB.count > 0 {
             list.removeAll()
             list.append(contentsOf: listFromDB)
@@ -64,7 +70,7 @@ extension StoreManager {
     /// 准备数据
     fileprivate func prepareData() {
         list.removeAll()
-        let listFromDB = DBManager.shared.queryStoreList()
+        let listFromDB = StoreDBManager.shared.queryStoreList()
         if listFromDB.count > 0 {
             list.append(contentsOf: listFromDB)
         } else {
