@@ -46,4 +46,9 @@ class AdventureGameTests: XCTestCase {
         TotalDBManager.shared.saveTotal()
         TotalDBManager.shared.queryTotalToShareManager()
     }
+    
+    func testIPS() {
+        let ips = StoreManager.shared.calculateAverageIncomePerSeconds()
+        print(ips)
+    }
 }

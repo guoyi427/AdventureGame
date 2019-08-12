@@ -12,11 +12,15 @@ import SnapKit
 class GameViewController: UIViewController {
 
     fileprivate let backgroundView: UIScrollView
+    /// 总收入标签
     fileprivate let totalIncomeLabel: UILabel
+    /// 每秒收入标签
+    fileprivate let ipsLabel: UILabel
     
     required init?(coder aDecoder: NSCoder) {
         backgroundView = UIScrollView(frame: CGRect.zero)
         totalIncomeLabel = UILabel(frame: CGRect.zero)
+        ipsLabel = UILabel(frame: CGRect.zero)
         super.init(coder: aDecoder)
     }
     
@@ -62,6 +66,16 @@ extension GameViewController {
             make.top.equalTo(5)
         }
         
+        //  每秒收入
+        view.addSubview(ipsLabel)
+        ipsLabel.textColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        ipsLabel.text = "\(StoreManager.shared.calculateAverageIncomePerSeconds().text())每秒"
+        ipsLabel.font = UIFont.systemFont(ofSize: 18)
+        ipsLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(totalIncomeLabel.snp.left).offset(-20)
+            make.centerY.equalTo(totalIncomeLabel)
+        }
+        
         //  商店
         for x in 0...MaxStoreIndex {
             let storeView = StoreView(frame: CGRect(x: x%2==0 ? 50 : 400, y: x/2*90 + 10, width: 300, height: 80))
@@ -78,5 +92,7 @@ extension GameViewController: StoreManagerDelegate {
     /// - Parameter income: 总收入
     func didUpdateTotalIncome(income: MoneyUnit) {
         totalIncomeLabel.text = income.text()
+        #warning("waiting to fix")
+        ipsLabel.text = "\(StoreManager.shared.calculateAverageIncomePerSeconds().text())每秒"
     }
 }

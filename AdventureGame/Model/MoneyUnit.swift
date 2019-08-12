@@ -150,4 +150,17 @@ struct MoneyUnit {
         }
         return MoneyUnit(number: Double(value), multiple: n)
     }
+    
+    static func / (left: MoneyUnit, right: Double) -> MoneyUnit {
+        var value = left.number / right
+        var n = left.multiple
+        while value < 1 {
+            value = value * MultipleFactor
+            n -= 1
+        }
+        
+        let result = MoneyUnit(number: value, multiple: n)
+        
+        return result
+    }
 }

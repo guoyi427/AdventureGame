@@ -65,6 +65,24 @@ class StoreManager: NSObject {
             delegate.didUpdateTotalIncome(income: totalIncome)
         }
     }
+    
+    /// 计算每秒收入
+    ///
+    /// - Returns: 收入
+    func calculateAverageIncomePerSeconds() -> MoneyUnit {
+        var totalIPS: MoneyUnit = MoneyUnit(number: 0, multiple: 0)
+        
+        //  计算每个商店的 IPS--income per seconds
+        for model in list {
+            let storeIPS = model.income / model.interval
+            print(storeIPS)
+            totalIPS += storeIPS
+        }
+        
+        let ips = totalIPS / Double(list.count)
+        
+        return ips
+    }
 }
 
 // MARK: - Private Methods
