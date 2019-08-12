@@ -33,9 +33,10 @@ class StoreDBManager: NSObject {
         if state != SQLITE_OK {
             print("open db failed")
         }
+        print("db path = \(cachePath)")
     }
     
-    func saveAllStore() {
+    func saveAllStoreAndTotal() {
         guard let db = db else { return }
         let insertSqlStr = "insert into Store (sid, level, interval, original_interval, income_number, income_multiple, original_income_number, original_income_multiple, multiple, time, isUnlock, isOperation, hasManager, upgradeMoney_number, upgradeMoney_multiple, unlockMoney_number, unlockMoney_multiple) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
@@ -103,6 +104,8 @@ class StoreDBManager: NSObject {
             
             sqlite3_finalize(insertStatement)
         }
+        
+        TotalDBManager.shared.saveTotal()
     }
     
     func queryStoreList() -> [StoreModel] {
@@ -145,6 +148,7 @@ class StoreDBManager: NSObject {
             model.unlockMoney = MoneyUnit(number: unlockMoneyNumber, multiple: Int(unlockMoneyMultiple))
             list.append(model)
         }
+        sqlite3_finalize(statement)
         return list
     }
 }

@@ -18,9 +18,10 @@ class TotalDBManager: NSObject {
         db = StoreDBManager.shared.db
     }
     
+    /// 把StoreManager的最新数据同步到Total表中
     func saveTotal() {
         guard let db = db else { return }
-        let selectSqlStr = "select total from Total where id = 0"
+        let selectSqlStr = "select * from Total"
         var selectStmt: OpaquePointer?
         let selectPrepare = sqlite3_prepare_v2(db, selectSqlStr, -1, &selectStmt, nil)
         if selectPrepare != SQLITE_OK {
@@ -33,7 +34,7 @@ class TotalDBManager: NSObject {
             //  有数据 更新
             sqlite3_finalize(selectStmt)
             
-            let updateSqlStr = "update Total set total_score_number = \(StoreManager.shared.totalIncome.number), total_score_multiple = \(StoreManager.shared.totalIncome.multiple), leave_time = \(Int(Date().timeIntervalSince1970)), multiple = \(StoreManager.shared.multiple), diamonds = \(StoreManager.shared.diamonds), circle = \(StoreManager.shared.circle) where id = 0"
+            let updateSqlStr = "update Total set total_score_number = \(StoreManager.shared.totalIncome.number), total_score_multiple = \(StoreManager.shared.totalIncome.multiple), leave_time = \(Int(Date().timeIntervalSince1970)), multiple = \(StoreManager.shared.multiple), diamonds = \(StoreManager.shared.diamonds), circle = \(StoreManager.shared.circle) where id = 1"
             var updateStmt: OpaquePointer?
             let updatePrepare = sqlite3_prepare_v2(db, updateSqlStr, -1, &updateStmt, nil)
             if updatePrepare != SQLITE_OK {
@@ -73,7 +74,29 @@ class TotalDBManager: NSObject {
         }
     }
     
+    /// 查找Total表 并更新到StoreManager
     func queryTotalToShareManager() {
+        guard let db = db else { return }
+        let selectSqlStr = "select * from Total"
+        var selectStmt: OpaquePointer?
+        let selectPrepare = sqlite3_prepare_v2(db, selectSqlStr, -1, &selectStmt, nil)
+        if selectPrepare != SQLITE_OK {
+            print("select prepare is failure")
+            sqlite3_finalize(selectStmt)
+            return
+        }
         
+        let selectResult = sqlite3_step(selectStmt)
+        if selectResult == SQLITE_ROW {
+            let incomeNumber = sqlite3_column_double(selectStmt, 1)
+            let incomeMultiple = Int(sqlite3_column_int(selectStmt, 2))
+            let income = MoneyUnit(number: incomeNumber, multiple: incomeMultiple)
+            StoreManager.shared.totalIncome = income
+            StoreManager.shared.leaveTime = Int(sqlite3_column_int(selectStmt, 3))
+            StoreManager.shared.multiple = Int(sqlite3_column_int(selectStmt, 4))
+            StoreManager.shared.diamonds = Int(sqlite3_column_int(selectStmt, 5))
+            StoreManager.shared.circle = Int(sqlite3_column_int(selectStmt, 6))
+        }
+        sqlite3_finalize(selectStmt)
     }
 }

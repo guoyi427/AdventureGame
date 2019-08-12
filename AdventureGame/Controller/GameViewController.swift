@@ -55,7 +55,7 @@ extension GameViewController {
         //  总收入
         view.addSubview(totalIncomeLabel)
         totalIncomeLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
-        totalIncomeLabel.text = "0"
+        totalIncomeLabel.text = StoreManager.shared.totalIncome.text()
         totalIncomeLabel.font = UIFont.systemFont(ofSize: 20)
         totalIncomeLabel.snp.makeConstraints { (make) in
             make.right.equalTo(-50)

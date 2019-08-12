@@ -16,6 +16,7 @@ class StoreManager: NSObject {
     var multiple = 1
     var circle = 1
     var diamonds = 0
+    var leaveTime = 0
     
     
     
@@ -35,6 +36,7 @@ class StoreManager: NSObject {
             list.removeAll()
             list.append(contentsOf: listFromDB)
         }
+        TotalDBManager.shared.queryTotalToShareManager()
     }
     
     /// 根据下标获取商店模型
@@ -79,11 +81,6 @@ extension StoreManager {
                 list.append(model)
             }
         }
-    }
-    
-    @objc
-    fileprivate func update() {
-        
     }
 }
 

@@ -33,12 +33,17 @@ class AdventureGameTests: XCTestCase {
 
     func testDBManager() {
         
-        let list2 = DBManager.shared.queryStoreList()
+        let list2 = StoreDBManager.shared.queryStoreList()
         print(list2)
         
-        DBManager.shared.saveAllStore()
+        StoreDBManager.shared.saveAllStoreAndTotal()
         
-        let list = DBManager.shared.queryStoreList()
+        let list = StoreDBManager.shared.queryStoreList()
         print(list)
+    }
+    
+    func testTotalDBManager() {
+        TotalDBManager.shared.saveTotal()
+        TotalDBManager.shared.queryTotalToShareManager()
     }
 }
