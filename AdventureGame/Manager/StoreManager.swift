@@ -75,13 +75,12 @@ class StoreManager: NSObject {
         //  计算每个商店的 IPS--income per seconds
         for model in list {
             let storeIPS = model.income / model.interval
-            print(storeIPS)
             totalIPS += storeIPS
         }
         
-        let ips = totalIPS / Double(list.count)
+//        let ips = totalIPS / Double(list.count)
         
-        return ips
+        return totalIPS
     }
 }
 

@@ -92,7 +92,6 @@ extension GameViewController: StoreManagerDelegate {
     /// - Parameter income: 总收入
     func didUpdateTotalIncome(income: MoneyUnit) {
         totalIncomeLabel.text = income.text()
-        #warning("waiting to fix")
         ipsLabel.text = "\(StoreManager.shared.calculateAverageIncomePerSeconds().text())每秒"
     }
 }
