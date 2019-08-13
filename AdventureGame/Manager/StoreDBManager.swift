@@ -141,7 +141,7 @@ class StoreDBManager: NSObject {
             model.multiple = sqlite3_column_double(statement, 9)
             model.time = sqlite3_column_double(statement, 10)
             model.isUnlock = sqlite3_column_int(statement, 11) == 1 ? true : false
-            model.isOperation = sqlite3_column_int(statement, 12) == 1 ? true : false
+            model.isOperation = sqlite3_column_int(statement, 12) == 1 ? true : model.isUnlock
             model.hasManager = sqlite3_column_int(statement, 13) == 1 ? true : false
             let upgradeMoneyNumber = sqlite3_column_double(statement, 14)
             let upgradeMoneyMultiple = sqlite3_column_int(statement, 15)

@@ -88,7 +88,7 @@ class StoreModel: NSObject {
     
     /// 执行
     func operation() {
-        self.isOperation = true
+        isOperation = true
         if timer != nil {
             return
         }
