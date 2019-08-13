@@ -154,4 +154,20 @@ class StoreDBManager: NSObject {
         sqlite3_finalize(statement)
         return list
     }
+    
+    func save(model: StoreModel) {
+        guard let db = db else { return }
+        let updateSqlStr = "update Store set level = \(model.level), interval = \(model.interval), income_number = \(model.income.number), income_multiple = \(model.income.multiple), multiple = \(model.multiple), time = \(model.time), isUnlock = \(model.isUnlock), isOperation = \(model.isOperation), hasManager = \(model.hasManager), upgradeMoney_number = \(model.upgradeMoney.number), upgradeMoney_multiple = \(model.upgradeMoney.multiple) where sid = \(model.sid)"
+        var stmt: OpaquePointer?
+        let prepare = sqlite3_prepare_v2(db, updateSqlStr, -1, &stmt, nil)
+        if prepare != SQLITE_OK {
+            print("update \(model) prepare failure")
+            return
+        }
+        let result = sqlite3_step(stmt)
+        if result == SQLITE_DONE {
+            print("update \(model) success")
+        }
+        sqlite3_finalize(stmt)
+    }
 }

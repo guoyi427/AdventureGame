@@ -97,6 +97,9 @@ class StoreModel: NSObject {
             timer = Timer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
             RunLoop.main.add(timer!, forMode: .common)
         }
+        
+        //  更新数据库
+        StoreDBManager.shared.save(model: self)
     }
     
     /// 升级
@@ -117,6 +120,9 @@ class StoreModel: NSObject {
         
         //  更新升级数据
         upgradeRefresh()
+        
+        //  更新数据库
+        StoreDBManager.shared.save(model: self)
         
         //  更新UI
         if let view = view {
