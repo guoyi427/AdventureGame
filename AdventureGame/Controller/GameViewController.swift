@@ -16,12 +16,16 @@ class GameViewController: UIViewController {
     fileprivate let totalIncomeLabel: UILabel
     /// 每秒收入标签
     fileprivate let ipsLabel: UILabel
+    /// 商店数组
     fileprivate var storeViewList: [StoreView] = []
+    /// 钻石标签
+    fileprivate let diamondsLabel: UILabel
     
     required init?(coder aDecoder: NSCoder) {
         backgroundView = UIScrollView(frame: CGRect.zero)
         totalIncomeLabel = UILabel(frame: CGRect.zero)
         ipsLabel = UILabel(frame: CGRect.zero)
+        diamondsLabel = UILabel(frame: CGRect.zero)
         super.init(coder: aDecoder)
         
         if let appdelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -89,6 +93,28 @@ extension GameViewController {
             make.centerY.equalTo(totalIncomeLabel)
         }
         
+        //  钻石
+        view.addSubview(diamondsLabel)
+        diamondsLabel.textColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+        diamondsLabel.text = "\(StoreManager.shared.diamonds)枚钻石"
+        diamondsLabel.font = UIFont.systemFont(ofSize: 18)
+        diamondsLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(ipsLabel.snp.left).offset(-20)
+            make.centerY.equalTo(ipsLabel)
+        }
+        
+        /// 赚钻石的按钮
+        let earnDiamondsButton = UIButton(type: .custom)
+        earnDiamondsButton.addTarget(self, action: #selector(earnDiamondsButtonAction), for: .touchUpInside)
+        earnDiamondsButton.setTitle("+钻石", for: .normal)
+        earnDiamondsButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        earnDiamondsButton.setTitleColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .normal)
+        view.addSubview(earnDiamondsButton)
+        earnDiamondsButton.snp.makeConstraints { (make) in
+            make.right.equalTo(diamondsLabel.snp.left).offset(-5)
+            make.centerY.equalTo(diamondsLabel)
+        }
+        
         //  商店
         for x in 0...MaxStoreIndex {
             let storeView = StoreView(frame: CGRect(x: x%2==0 ? 50 : 400, y: x/2*90 + 10, width: 300, height: 80))
@@ -96,6 +122,41 @@ extension GameViewController {
             backgroundView.addSubview(storeView)
             StoreManager.shared.setupModel(index: x, view: storeView)
         }
+    }
+}
+
+// MARK: - Button Action
+extension GameViewController {
+    @objc
+    fileprivate func earnDiamondsButtonAction() {
+        let doneAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
+            //  菊花
+            let activityView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+            activityView.frame = CGRect(x: ScreenWidth/2 - 20, y: ScreenHeight/2 - 20, width: 40, height: 40)
+            activityView.startAnimating()
+            self.view.addSubview(activityView)
+            
+            AdsManager.instance.showInterstitial(viewController: self, complete: { [weak self] (result) in
+                activityView.removeFromSuperview()
+                if result {
+                    //  成功，增加钻石数量
+                    StoreManager.shared.diamonds += 10
+                    TotalDBManager.shared.saveTotal()
+                    self?.diamondsLabel.text = "\(StoreManager.shared.diamonds)枚钻石"
+                } else {
+                    //  跳转广告失败
+                    let knowAction = UIAlertAction(title: "知道了", style: .default, handler: nil)
+                    let notClickAlert = UIAlertController(title: "您没有点击广告", message: "请点击广告跳转再返回即可", preferredStyle: .alert)
+                    notClickAlert.addAction(knowAction)
+                    self?.present(notClickAlert, animated: true, completion: nil)
+                }
+            })
+        })
+        let cancelAction = UIAlertAction(title: "不需要", style: .cancel, handler: nil)
+        let alertController = UIAlertController(title: "赚钻石", message: "麻烦您点击广告跳转，可获得10枚钻石，感谢", preferredStyle: .alert)
+        alertController.addAction(doneAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

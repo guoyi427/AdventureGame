@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5094B4D22264CBB764F314C6 /* Pods_AdventureGameTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD451E42E7D4724A8CA90067 /* Pods_AdventureGameTests.framework */; };
+		5B25C0412302B48B00589965 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B25C0402302B48B00589965 /* AdsManager.swift */; };
+		5B25C0432302B50D00589965 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B25C0422302B50C00589965 /* Constant.swift */; };
 		5B2E457722F439C100A4D9F6 /* MoneyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E457622F439C100A4D9F6 /* MoneyUnit.swift */; };
 		5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B526D22F168BB003967E4 /* StoreView.swift */; };
 		5BA7259322FACE4A008B558C /* AdventureGame.db in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7259222FACE4A008B558C /* AdventureGame.db */; };
@@ -48,6 +50,8 @@
 		422CCAE33F26E4392D5E3AF0 /* Pods_AdventureGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		515EE9D3D298A103B8A9D915 /* Pods-AdventureGameUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameUITests.debug.xcconfig"; path = "Target Support Files/Pods-AdventureGameUITests/Pods-AdventureGameUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		538521BEA1A33DC9D7B2EEBC /* Pods-AdventureGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureGameTests.release.xcconfig"; path = "Target Support Files/Pods-AdventureGameTests/Pods-AdventureGameTests.release.xcconfig"; sourceTree = "<group>"; };
+		5B25C0402302B48B00589965 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
+		5B25C0422302B50C00589965 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		5B2E457622F439C100A4D9F6 /* MoneyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyUnit.swift; sourceTree = "<group>"; };
 		5B9B526D22F168BB003967E4 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		5BA7259222FACE4A008B558C /* AdventureGame.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = AdventureGame.db; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 				5BDC0E7A22E97AC90050F9C8 /* LaunchScreen.storyboard */,
 				5BDC0E7D22E97AC90050F9C8 /* Info.plist */,
 				5BA7259222FACE4A008B558C /* AdventureGame.db */,
+				5B25C0422302B50C00589965 /* Constant.swift */,
 			);
 			path = AdventureGame;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 				5BAD56C722F19506005E3393 /* StoreManager.swift */,
 				5BD6752122FA7E700055E9BF /* StoreDBManager.swift */,
 				5BD2843722FD419500E77BB3 /* TotalDBManager.swift */,
+				5B25C0402302B48B00589965 /* AdsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -444,8 +450,10 @@
 				5BDC0EA622E98C260050F9C8 /* GameViewController.swift in Sources */,
 				5BAD56C822F19506005E3393 /* StoreManager.swift in Sources */,
 				5B9B526E22F168BB003967E4 /* StoreView.swift in Sources */,
+				5B25C0412302B48B00589965 /* AdsManager.swift in Sources */,
 				5BD2843822FD419500E77BB3 /* TotalDBManager.swift in Sources */,
 				5BDC0E6C22E97AC80050F9C8 /* AppDelegate.swift in Sources */,
+				5B25C0432302B50D00589965 /* Constant.swift in Sources */,
 				5BAD56CB22F1958F005E3393 /* StoreModel.swift in Sources */,
 				5BD6752222FA7E700055E9BF /* StoreDBManager.swift in Sources */,
 			);
