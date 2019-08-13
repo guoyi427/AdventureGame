@@ -54,21 +54,10 @@ class StoreManager: NSObject {
         //  更新总收入
         TotalDBManager.shared.queryTotalToShareManager()
         //  更新后台收入
+        prepareBackgroundIncome()
+        //  刷新UI
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         guard let gameController = appdelegate.gameController else { return }
-        if leaveTime > 0 {
-            let currentTimestamp = Date.init().timeIntervalSince1970
-            let differTime = currentTimestamp - TimeInterval(leaveTime)
-            let backgroundIncome = calculateAverageIncomePerSeconds() * differTime
-            let alertAction = UIAlertAction(title: "确定", style: .default) { (action) in
-                self.changeTotaleIncome(income: backgroundIncome)
-            }
-            let alertController = UIAlertController(title: "后台收入", message: "您在后台这段时间赚取了\(backgroundIncome.text())", preferredStyle: .alert)
-            alertController.addAction(alertAction)
-            gameController.present(alertController, animated: true, completion: nil)
-        }
-        
-        //  刷新UI
         gameController.uploadStoreView()
     }
     
@@ -131,6 +120,85 @@ extension StoreManager {
                 let model = StoreModel(index: x)
                 list.append(model)
             }
+        }
+    }
+    
+    /// 更新后台收入
+    fileprivate func prepareBackgroundIncome() {
+        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let gameController = appdelegate.gameController else { return }
+        if leaveTime > 0 {
+            let currentTimestamp = Date.init().timeIntervalSince1970
+            let differTime = currentTimestamp - TimeInterval(leaveTime)
+            let backgroundIncome = calculateAverageIncomePerSeconds() * differTime
+            
+            let cancelAction = UIAlertAction(title: "拒绝", style: .cancel, handler: nil)
+            let diamondsAction = UIAlertAction(title: "消耗钻石", style: .default) { (action) in
+                //  消耗钻石，将后台收入加入到总收入
+                self.earnBackgroundIncomeByDiamonds(income: backgroundIncome)
+            }
+            let advertAction = UIAlertAction(title: "看广告", style: .default) { (action) in
+                //  看广告
+                self.earnBackgroundIncomeByAdvert(income: backgroundIncome)
+            }
+            let alertController = UIAlertController(title: "后台收入", message: "您在后台这段时间赚取了\(backgroundIncome.text())金币，可消耗5枚钻石或者点击一个广告获取后台收益", preferredStyle: .alert)
+            alertController.addAction(diamondsAction)
+            alertController.addAction(advertAction)
+            alertController.addAction(cancelAction)
+            gameController.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    /// 通过广告获取后台收益
+    ///
+    /// - Parameter income: 后台收入
+    fileprivate func earnBackgroundIncomeByAdvert(income: MoneyUnit) {
+        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let gameController = appdelegate.gameController else { return }
+        
+        //  菊花
+        let activityView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+        activityView.frame = CGRect(x: ScreenWidth/2 - 20, y: ScreenHeight/2 - 20, width: 40, height: 40)
+        activityView.startAnimating()
+        gameController.view.addSubview(activityView)
+        
+        AdsManager.instance.showInterstitial(viewController: gameController, complete: { [weak self] (result) in
+            activityView.removeFromSuperview()
+            if result {
+                //  成功，把后台收入加到总收入
+                self?.changeTotaleIncome(income: income)
+                TotalDBManager.shared.saveTotal()
+            } else {
+                //  跳转广告失败
+                let knowAction = UIAlertAction(title: "知道了", style: .default, handler: { (action) in
+                    self?.prepareBackgroundIncome()
+                })
+                let notClickAlert = UIAlertController(title: "您没有点击广告", message: "请点击广告跳转再返回即可", preferredStyle: .alert)
+                notClickAlert.addAction(knowAction)
+                gameController.present(notClickAlert, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    /// 通过钻石获取后台收益
+    ///
+    /// - Parameter income: 后台收益
+    fileprivate func earnBackgroundIncomeByDiamonds(income: MoneyUnit) {
+        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let gameController = appdelegate.gameController else { return }
+        
+        if StoreManager.shared.diamonds >= 5 {
+            self.changeTotaleIncome(income: income)
+            StoreManager.shared.diamonds -= 5
+            TotalDBManager.shared.saveTotal()
+        } else {
+            //  钻石不够
+            let knowAction = UIAlertAction(title: "知道了", style: .default, handler: { (action) in
+                self.prepareBackgroundIncome()
+            })
+            let notClickAlert = UIAlertController(title: "您钻石不够啦", message: "请点击广告或者放弃后台收益", preferredStyle: .alert)
+            notClickAlert.addAction(knowAction)
+            gameController.present(notClickAlert, animated: true, completion: nil)
         }
     }
 }
