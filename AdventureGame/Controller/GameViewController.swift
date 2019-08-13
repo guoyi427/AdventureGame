@@ -16,12 +16,17 @@ class GameViewController: UIViewController {
     fileprivate let totalIncomeLabel: UILabel
     /// 每秒收入标签
     fileprivate let ipsLabel: UILabel
+    fileprivate var storeViewList: [StoreView] = []
     
     required init?(coder aDecoder: NSCoder) {
         backgroundView = UIScrollView(frame: CGRect.zero)
         totalIncomeLabel = UILabel(frame: CGRect.zero)
         ipsLabel = UILabel(frame: CGRect.zero)
         super.init(coder: aDecoder)
+        
+        if let appdelegate = UIApplication.shared.delegate as? AppDelegate {
+            appdelegate.gameController = self
+        }
     }
     
     override func viewDidLoad() {
@@ -38,6 +43,14 @@ class GameViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    func uploadStoreView() {
+        //  商店
+        for x in 0...MaxStoreIndex {
+            let storeView = storeViewList[x]
+            StoreManager.shared.setupModel(index: x, view: storeView)
+        }
     }
 }
 
@@ -79,6 +92,7 @@ extension GameViewController {
         //  商店
         for x in 0...MaxStoreIndex {
             let storeView = StoreView(frame: CGRect(x: x%2==0 ? 50 : 400, y: x/2*90 + 10, width: 300, height: 80))
+            storeViewList.append(storeView)
             backgroundView.addSubview(storeView)
             StoreManager.shared.setupModel(index: x, view: storeView)
         }

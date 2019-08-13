@@ -52,7 +52,7 @@ class StoreModel: NSObject {
     fileprivate var timer: Timer?
     
     override var description: String {
-        return "name:\(name), level:\(level), interval:\(interval), income:\(income.text()), time:\(time)"
+        return "name:\(name), level:\(level), interval:\(interval), income:\(income.text()), time:\(time), isUnlock:\(isUnlock), isOperation:\(isOperation), hasManager:\(hasManager), upgradeMoney:\(upgradeMoney.text()), unlockMoney:\(unlockMoney.text())"
     }
     
     
@@ -76,6 +76,14 @@ class StoreModel: NSObject {
     
     override init() {
         super.init()
+    }
+    
+    deinit {
+        if let timer = timer {
+            timer.invalidate()
+        }
+        timer = nil
+        view = nil
     }
     
     /// 执行

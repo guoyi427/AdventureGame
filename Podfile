@@ -8,6 +8,7 @@ target 'AdventureGame' do
   # Pods for AdventureGame
   
   pod 'SnapKit'
+  pod 'Google-Mobile-Ads-SDK'
 
   target 'AdventureGameTests' do
     inherit! :search_paths

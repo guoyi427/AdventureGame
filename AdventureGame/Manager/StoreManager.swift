@@ -33,13 +33,29 @@ class StoreManager: NSObject {
     func prepareListFromDB() {
         //  更新每个商店的数据
         let listFromDB = StoreDBManager.shared.queryStoreList()
-        if listFromDB.count > 0 {
-            list.removeAll()
-            list.append(contentsOf: listFromDB)
+        for x in 0...listFromDB.count - 1 {
+            let modelFromDB = listFromDB[x]
+            let model = list[x]
+            if modelFromDB.sid == model.sid {
+                model.level = modelFromDB.level
+                model.interval = modelFromDB.interval
+                model.originalInterval = modelFromDB.originalInterval
+                model.income = modelFromDB.income
+                model.originalIncome = modelFromDB.originalIncome
+                model.multiple = modelFromDB.multiple
+                model.time = modelFromDB.time
+                model.isUnlock = modelFromDB.isUnlock
+                model.isOperation = modelFromDB.isOperation
+                model.hasManager = modelFromDB.hasManager
+                model.upgradeMoney = modelFromDB.upgradeMoney
+                model.unlockMoney = modelFromDB.unlockMoney
+            }
         }
         //  更新总收入
         TotalDBManager.shared.queryTotalToShareManager()
         //  更新后台收入
+        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let gameController = appdelegate.gameController else { return }
         if leaveTime > 0 {
             let currentTimestamp = Date.init().timeIntervalSince1970
             let differTime = currentTimestamp - TimeInterval(leaveTime)
@@ -49,8 +65,11 @@ class StoreManager: NSObject {
             }
             let alertController = UIAlertController(title: "后台收入", message: "您在后台这段时间赚取了\(backgroundIncome.text())", preferredStyle: .alert)
             alertController.addAction(alertAction)
-            UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+            gameController.present(alertController, animated: true, completion: nil)
         }
+        
+        //  刷新UI
+        gameController.uploadStoreView()
     }
     
     /// 根据下标获取商店模型
@@ -104,7 +123,6 @@ class StoreManager: NSObject {
 extension StoreManager {
     /// 准备数据
     fileprivate func prepareData() {
-        list.removeAll()
         let listFromDB = StoreDBManager.shared.queryStoreList()
         if listFromDB.count > 0 {
             list.append(contentsOf: listFromDB)
