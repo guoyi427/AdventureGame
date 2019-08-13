@@ -10,7 +10,7 @@ import UIKit
 
 /// 名字列表
 let NameList = ["Lemoned", "Newspaper", "Car", "Donut", "Seafood", "Sport", "Movie", "Government", "Oil"]
-fileprivate let AvatarList = [#imageLiteral(resourceName: "lemon"), #imageLiteral(resourceName: "newspaper"), #imageLiteral(resourceName: "car"), #imageLiteral(resourceName: "donut"), #imageLiteral(resourceName: "seafood"), #imageLiteral(resourceName: "sport"), #imageLiteral(resourceName: "movie"), #imageLiteral(resourceName: "government"), #imageLiteral(resourceName: "oil")]
+let AvatarList = [#imageLiteral(resourceName: "lemon"), #imageLiteral(resourceName: "newspaper"), #imageLiteral(resourceName: "car"), #imageLiteral(resourceName: "donut"), #imageLiteral(resourceName: "seafood"), #imageLiteral(resourceName: "sport"), #imageLiteral(resourceName: "movie"), #imageLiteral(resourceName: "government"), #imageLiteral(resourceName: "oil")]
 /// 最大下标
 let MaxStoreIndex = 8
 

@@ -126,6 +126,9 @@ class StoreDBManager: NSObject {
             if model.sid < NameList.count {
                 model.name = NameList[model.sid]
             }
+            if model.sid < AvatarList.count {
+                model.avatarImage = AvatarList[model.sid]
+            }
             model.level = Int(sqlite3_column_int(statement, 2))
             model.interval = sqlite3_column_double(statement, 3)
             model.originalInterval = sqlite3_column_double(statement, 4)
