@@ -31,12 +31,26 @@ class StoreManager: NSObject {
     
     /// 从数据库中准备商店数据
     func prepareListFromDB() {
+        //  更新每个商店的数据
         let listFromDB = StoreDBManager.shared.queryStoreList()
         if listFromDB.count > 0 {
             list.removeAll()
             list.append(contentsOf: listFromDB)
         }
+        //  更新总收入
         TotalDBManager.shared.queryTotalToShareManager()
+        //  更新后台收入
+        if leaveTime > 0 {
+            let currentTimestamp = Date.init().timeIntervalSince1970
+            let differTime = currentTimestamp - TimeInterval(leaveTime)
+            let backgroundIncome = calculateAverageIncomePerSeconds() * differTime
+            let alertAction = UIAlertAction(title: "确定", style: .default) { (action) in
+                self.changeTotaleIncome(income: backgroundIncome)
+            }
+            let alertController = UIAlertController(title: "后台收入", message: "您在后台这段时间赚取了\(backgroundIncome.text())", preferredStyle: .alert)
+            alertController.addAction(alertAction)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+        }
     }
     
     /// 根据下标获取商店模型
@@ -75,7 +89,9 @@ class StoreManager: NSObject {
         //  计算每个商店的 IPS--income per seconds
         for model in list {
             let storeIPS = model.income / model.interval
-            totalIPS += storeIPS
+            if model.isUnlock {
+                totalIPS += storeIPS
+            }
         }
         
 //        let ips = totalIPS / Double(list.count)
