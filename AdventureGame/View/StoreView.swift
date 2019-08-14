@@ -11,14 +11,14 @@ import UIKit
 class StoreView: UIView {
     
     fileprivate let upgradeButton: UIButton
-    fileprivate let operationButton: UIButton
+//    fileprivate let operationButton: UIButton
     fileprivate let unlockButton: UIButton
     
     fileprivate let contentView: UIView
     fileprivate let avatarView: UIImageView
-    fileprivate let nameLabel: UILabel
     fileprivate let incomeLabel: UILabel
     fileprivate let levelLabel: UILabel
+//    fileprivate let levelTitleLabel: UILabel
     fileprivate let timeLabel: UILabel
     fileprivate let progressView: UIProgressView
 
@@ -27,14 +27,14 @@ class StoreView: UIView {
     
     override init(frame: CGRect) {
         upgradeButton = UIButton(type: .custom)
-        operationButton = UIButton(type: .custom)
+//        operationButton = UIButton(type: .custom)
         unlockButton = UIButton(type: .custom)
         
         contentView = UIView(frame: CGRect.zero)
         avatarView = UIImageView(frame: CGRect.zero)
-        nameLabel = UILabel(frame: CGRect.zero)
         incomeLabel = UILabel(frame: CGRect.zero)
         levelLabel = UILabel(frame: CGRect.zero)
+//        levelTitleLabel = UILabel(frame: CGRect.zero)
         timeLabel = UILabel(frame: CGRect.zero)
         progressView = UIProgressView(progressViewStyle: .default)
         
@@ -51,7 +51,6 @@ class StoreView: UIView {
         storeModel = model
         
         //  更新基础数据
-        nameLabel.text = model.name
         avatarView.image = model.avatarImage
         incomeLabel.text = model.income.text()
         levelLabel.text = "\(model.level)"
@@ -68,11 +67,9 @@ class StoreView: UIView {
         upgradeButton.layer.borderWidth = StoreManager.shared.totalIncome >= model.upgradeMoney ? 2 : 0
         
         contentView.isHidden = !model.isUnlock
-        upgradeButton.isHidden = !model.isUnlock
-        operationButton.isHidden = !model.isUnlock
         unlockButton.isHidden = model.isUnlock
         
-        if model.isOperation {
+        if model.isUnlock || model.isOperation {
             model.operation()
         }
     }
@@ -88,105 +85,122 @@ extension StoreView {
     fileprivate func prepareUI() {
         backgroundColor = #colorLiteral(red: 0.7019608021, green: 0.8431372643, blue: 1, alpha: 1)
         
-        prepareButton()
+        //  背景，除了解锁按钮，所有视图都在这上面
+        contentView.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        addSubview(contentView)
         
+        prepareButton()
         prepareContentView()
+        prepareLayout()
     }
     
     fileprivate func prepareButton() {
-        addSubview(upgradeButton)
-        upgradeButton.snp.makeConstraints { (make) in
-            make.left.top.equalTo(0)
-            make.bottom.equalTo(self.snp.centerY)
-            make.width.equalTo(Width_Button)
-        }
         upgradeButton.addTarget(self, action: #selector(upgradeButtonAction), for: .touchUpInside)
         upgradeButton.setTitle("升级", for: .normal)
         upgradeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         upgradeButton.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         upgradeButton.layer.borderWidth = 0
+        contentView.addSubview(upgradeButton)
         
-        addSubview(operationButton)
-        operationButton.snp.makeConstraints { (make) in
-            make.left.bottom.equalTo(0)
-            make.width.equalTo(upgradeButton)
-            make.top.equalTo(upgradeButton.snp.bottom)
-        }
-        operationButton.addTarget(self, action: #selector(operationButtonAction), for: .touchUpInside)
-        operationButton.setTitle("执行", for: .normal)
-        operationButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+//        operationButton.addTarget(self, action: #selector(operationButtonAction), for: .touchUpInside)
+//        operationButton.setTitle("执行", for: .normal)
+//        operationButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+//        contentView.addSubview(operationButton)
         
-        addSubview(unlockButton)
-        unlockButton.snp.makeConstraints { (make) in
-            make.center.equalTo(self.snp.center)
-            make.size.equalTo(CGSize(width: 100, height: 50))
-        }
         unlockButton.addTarget(self, action: #selector(unlockButtonAction), for: .touchUpInside)
         unlockButton.setTitle("解锁店铺", for: .normal)
         unlockButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         unlockButton.layer.borderColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         unlockButton.layer.borderWidth = 0
+        addSubview(unlockButton)
     }
     
     fileprivate func prepareContentView() {
-        addSubview(contentView)
-        contentView.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
-        contentView.snp.makeConstraints { (make) in
-            make.left.equalTo(upgradeButton.snp.right)
-            make.top.bottom.right.equalTo(0)
-        }
-        
         contentView.addSubview(avatarView)
-        avatarView.snp.makeConstraints { (make) in
-            make.top.left.equalTo(10)
-            make.width.height.equalTo(50)
-        }
-        
-        contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(avatarView.snp.right).offset(10)
-            make.top.equalTo(avatarView)
-        }
-        
-        contentView.addSubview(incomeLabel)
+
         incomeLabel.font = UIFont.systemFont(ofSize: 18)
-        incomeLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(nameLabel)
-            make.top.equalTo(nameLabel.snp.bottom).offset(10)
-        }
+        contentView.addSubview(incomeLabel)
         
         contentView.addSubview(levelLabel)
-        levelLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(avatarView)
-            make.right.equalTo(-10)
-        }
         
-        let levelTitleLabel = UILabel(frame: CGRect.zero)
-        levelTitleLabel.text = "level:"
-        levelTitleLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        levelTitleLabel.font = UIFont.systemFont(ofSize: 10)
-        contentView.addSubview(levelTitleLabel)
-        levelTitleLabel.snp.makeConstraints { (make) in
-            make.right.equalTo(levelLabel.snp.left).offset(-5)
-            make.centerY.equalTo(levelLabel)
-        }
+//        levelTitleLabel.text = "level:"
+//        levelTitleLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+//        levelTitleLabel.font = UIFont.systemFont(ofSize: 10)
+//        contentView.addSubview(levelTitleLabel)
         
         contentView.addSubview(timeLabel)
-        timeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(levelLabel.snp.bottom).offset(5)
-            make.right.equalTo(-10)
-        }
         
-        contentView.addSubview(progressView)
         progressView.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-        progressView.snp.makeConstraints { (make) in
-            make.left.equalTo(avatarView)
-            make.right.equalTo(timeLabel.snp.right)
-            make.bottom.equalTo(-10)
-            make.height.equalTo(5)
-        }
+        contentView.addSubview(progressView)
     }
     
+    /// 准备约束
+    fileprivate func prepareLayout() {
+        //  背景
+        contentView.snp.makeConstraints { (make) in
+            make.left.right.top.bottom.equalTo(0)
+        }
+        
+        //  头像
+        avatarView.snp.makeConstraints { (make) in
+            make.top.left.equalTo(0)
+            make.width.height.equalTo(Width_Avatar)
+        }
+        
+        //  进度条
+        progressView.snp.makeConstraints { (make) in
+            make.left.equalTo(0)
+            make.right.equalTo(0)
+            make.top.equalTo(0)
+            make.height.equalTo(50)
+        }
+        
+        //  收入标签
+        incomeLabel.snp.makeConstraints { (make) in
+            make.center.equalTo(progressView)
+        }
+        
+        //  升级
+        upgradeButton.snp.makeConstraints { (make) in
+            make.left.equalTo(progressView)
+            make.top.equalTo(progressView.snp.bottom)
+            make.bottom.equalTo(0)
+            make.right.equalTo(timeLabel.snp.left)
+        }
+        
+//        operationButton.snp.makeConstraints { (make) in
+//            make.left.bottom.equalTo(0)
+//            make.width.equalTo(upgradeButton)
+//            make.top.equalTo(upgradeButton.snp.bottom)
+//        }
+        
+        //  等级
+        levelLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(avatarView.snp.bottom).offset(0)
+            make.centerX.equalTo(avatarView)
+        }
+        
+//        levelTitleLabel.snp.makeConstraints { (make) in
+//            make.right.equalTo(levelLabel.snp.left).offset(-5)
+//            make.centerY.equalTo(levelLabel)
+//        }
+        
+        //  倒计时
+        timeLabel.snp.makeConstraints { (make) in
+            make.top.bottom.equalTo(upgradeButton)
+            make.left.equalTo(upgradeButton.snp.right)
+        }
+        
+        //  解锁
+        unlockButton.snp.makeConstraints { (make) in
+            make.center.equalTo(self.snp.center)
+            make.size.equalTo(CGSize(width: 100, height: 50))
+        }
+    }
+}
+
+// MARK: - Button Action
+extension StoreView {
     /// 升级按钮方法
     @objc fileprivate func upgradeButtonAction() {
         guard let model = storeModel else { return }
@@ -194,10 +208,10 @@ extension StoreView {
     }
     
     /// 执行按钮方法
-    @objc fileprivate func operationButtonAction() {
-        guard let model = storeModel else { return }
-        model.operation()
-    }
+//    @objc fileprivate func operationButtonAction() {
+//        guard let model = storeModel else { return }
+//        model.operation()
+//    }
     
     /// 解锁商店方法
     @objc fileprivate func unlockButtonAction() {
