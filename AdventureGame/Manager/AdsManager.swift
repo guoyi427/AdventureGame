@@ -78,7 +78,8 @@ extension AdsManager: GADInterstitialDelegate {
             debugPrint("interstitail complete black is empty")
             return
         }
-        complete(didLeaveApp)
+//        complete(didLeaveApp)
+        complete(true)
     }
     
     func interstitialWillLeaveApplication(_ ad: GADInterstitial) {

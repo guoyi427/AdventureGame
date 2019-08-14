@@ -158,7 +158,7 @@ extension StoreManager {
         
         //  菊花
         let activityView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
-        activityView.frame = CGRect(x: ScreenWidth/2 - 20, y: ScreenHeight/2 - 20, width: 40, height: 40)
+        activityView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
         activityView.startAnimating()
         gameController.view.addSubview(activityView)
         
@@ -191,6 +191,7 @@ extension StoreManager {
             self.changeTotaleIncome(income: income)
             StoreManager.shared.diamonds -= 5
             TotalDBManager.shared.saveTotal()
+            gameController.uploadStoreView()
         } else {
             //  钻石不够
             let knowAction = UIAlertAction(title: "知道了", style: .default, handler: { (action) in

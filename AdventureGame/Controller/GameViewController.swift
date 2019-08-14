@@ -49,12 +49,20 @@ class GameViewController: UIViewController {
         return true
     }
     
+    /// 刷新商店视图
     func uploadStoreView() {
         //  商店
         for x in 0...MaxStoreIndex {
             let storeView = storeViewList[x]
             StoreManager.shared.setupModel(index: x, view: storeView)
         }
+    }
+    
+    /// 更新头部视图
+    func uploadHeadView() {
+        diamondsLabel.text = "钻石：\(StoreManager.shared.diamonds)"
+        ipsLabel.text = "每秒收入：\(StoreManager.shared.calculateAverageIncomePerSeconds().text())"
+        totalIncomeLabel.text = "当前余额\(StoreManager.shared.totalIncome.text())"
     }
 }
 
@@ -76,7 +84,6 @@ extension GameViewController {
         //  总收入
         view.addSubview(totalIncomeLabel)
         totalIncomeLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
-        totalIncomeLabel.text = StoreManager.shared.totalIncome.text()
         totalIncomeLabel.font = UIFont.systemFont(ofSize: 20)
         totalIncomeLabel.snp.makeConstraints { (make) in
             make.right.equalTo(-50)
@@ -86,7 +93,6 @@ extension GameViewController {
         //  每秒收入
         view.addSubview(ipsLabel)
         ipsLabel.textColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-        ipsLabel.text = "\(StoreManager.shared.calculateAverageIncomePerSeconds().text())每秒"
         ipsLabel.font = UIFont.systemFont(ofSize: 18)
         ipsLabel.snp.makeConstraints { (make) in
             make.right.equalTo(totalIncomeLabel.snp.left).offset(-20)
@@ -96,7 +102,6 @@ extension GameViewController {
         //  钻石
         view.addSubview(diamondsLabel)
         diamondsLabel.textColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
-        diamondsLabel.text = "\(StoreManager.shared.diamonds)枚钻石"
         diamondsLabel.font = UIFont.systemFont(ofSize: 18)
         diamondsLabel.snp.makeConstraints { (make) in
             make.right.equalTo(ipsLabel.snp.left).offset(-20)
@@ -115,6 +120,8 @@ extension GameViewController {
             make.centerY.equalTo(diamondsLabel)
         }
         
+        uploadHeadView()
+        
         //  商店
         for x in 0...MaxStoreIndex {
             let storeView = StoreView(frame: CGRect(x: x%2==0 ? 50 : 400, y: x/2*90 + 10, width: 300, height: 80))
@@ -122,6 +129,7 @@ extension GameViewController {
             backgroundView.addSubview(storeView)
             StoreManager.shared.setupModel(index: x, view: storeView)
         }
+        
     }
 }
 
@@ -132,7 +140,7 @@ extension GameViewController {
         let doneAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
             //  菊花
             let activityView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
-            activityView.frame = CGRect(x: ScreenWidth/2 - 20, y: ScreenHeight/2 - 20, width: 40, height: 40)
+            activityView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
             activityView.startAnimating()
             self.view.addSubview(activityView)
             
@@ -142,7 +150,7 @@ extension GameViewController {
                     //  成功，增加钻石数量
                     StoreManager.shared.diamonds += 10
                     TotalDBManager.shared.saveTotal()
-                    self?.diamondsLabel.text = "\(StoreManager.shared.diamonds)枚钻石"
+                    self?.uploadHeadView()
                 } else {
                     //  跳转广告失败
                     let knowAction = UIAlertAction(title: "知道了", style: .default, handler: nil)
@@ -166,7 +174,6 @@ extension GameViewController: StoreManagerDelegate {
     ///
     /// - Parameter income: 总收入
     func didUpdateTotalIncome(income: MoneyUnit) {
-        totalIncomeLabel.text = income.text()
-        ipsLabel.text = "\(StoreManager.shared.calculateAverageIncomePerSeconds().text())每秒"
+        uploadHeadView()
     }
 }
