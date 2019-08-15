@@ -20,7 +20,7 @@ class StoreView: UIView {
     fileprivate let levelLabel: UILabel
 //    fileprivate let levelTitleLabel: UILabel
     fileprivate let timeLabel: UILabel
-    fileprivate let progressView: UIProgressView
+    fileprivate let progressView: ProgressView
 
     var storeModel: StoreModel?
     
@@ -32,11 +32,11 @@ class StoreView: UIView {
         
         contentView = UIView(frame: CGRect.zero)
         avatarView = UIImageView(frame: CGRect.zero)
+        progressView = ProgressView(frame: CGRect.zero)
         incomeLabel = UILabel(frame: CGRect.zero)
         levelLabel = UILabel(frame: CGRect.zero)
 //        levelTitleLabel = UILabel(frame: CGRect.zero)
         timeLabel = UILabel(frame: CGRect.zero)
-        progressView = UIProgressView(progressViewStyle: .default)
         
         super.init(frame: frame)
         
@@ -116,8 +116,12 @@ extension StoreView {
     }
     
     fileprivate func prepareContentView() {
+        avatarView.layer.cornerRadius = CGFloat(Width_Avatar / 2)
+        avatarView.layer.masksToBounds = true
         contentView.addSubview(avatarView)
 
+        contentView.addSubview(progressView)
+        
         incomeLabel.font = UIFont.systemFont(ofSize: 18)
         contentView.addSubview(incomeLabel)
         
@@ -129,9 +133,6 @@ extension StoreView {
 //        contentView.addSubview(levelTitleLabel)
         
         contentView.addSubview(timeLabel)
-        
-        progressView.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-        contentView.addSubview(progressView)
     }
     
     /// 准备约束
@@ -149,7 +150,7 @@ extension StoreView {
         
         //  进度条
         progressView.snp.makeConstraints { (make) in
-            make.left.equalTo(0)
+            make.left.equalTo(avatarView.snp.right)
             make.right.equalTo(0)
             make.top.equalTo(0)
             make.height.equalTo(50)
@@ -163,6 +164,7 @@ extension StoreView {
         //  升级
         upgradeButton.snp.makeConstraints { (make) in
             make.left.equalTo(progressView)
+            make.width.greaterThanOrEqualTo(200)
             make.top.equalTo(progressView.snp.bottom)
             make.bottom.equalTo(0)
             make.right.equalTo(timeLabel.snp.left)
@@ -189,6 +191,7 @@ extension StoreView {
         timeLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(upgradeButton)
             make.left.equalTo(upgradeButton.snp.right)
+            make.width.equalTo(100)
         }
         
         //  解锁

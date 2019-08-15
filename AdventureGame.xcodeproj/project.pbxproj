@@ -15,6 +15,7 @@
 		5BA7259322FACE4A008B558C /* AdventureGame.db in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7259222FACE4A008B558C /* AdventureGame.db */; };
 		5BAD56C822F19506005E3393 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD56C722F19506005E3393 /* StoreManager.swift */; };
 		5BAD56CB22F1958F005E3393 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD56CA22F1958F005E3393 /* StoreModel.swift */; };
+		5BB51C6F23056A4E00AE3C8B /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB51C6E23056A4E00AE3C8B /* ProgressView.swift */; };
 		5BD2843822FD419500E77BB3 /* TotalDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2843722FD419500E77BB3 /* TotalDBManager.swift */; };
 		5BD6752222FA7E700055E9BF /* StoreDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6752122FA7E700055E9BF /* StoreDBManager.swift */; };
 		5BDC0E6C22E97AC80050F9C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC0E6B22E97AC80050F9C8 /* AppDelegate.swift */; };
@@ -57,6 +58,7 @@
 		5BA7259222FACE4A008B558C /* AdventureGame.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = AdventureGame.db; sourceTree = "<group>"; };
 		5BAD56C722F19506005E3393 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		5BAD56CA22F1958F005E3393 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
+		5BB51C6E23056A4E00AE3C8B /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		5BD2843722FD419500E77BB3 /* TotalDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDBManager.swift; sourceTree = "<group>"; };
 		5BD6752122FA7E700055E9BF /* StoreDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDBManager.swift; sourceTree = "<group>"; };
 		5BDC0E6822E97AC80050F9C8 /* AdventureGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventureGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				5B9B526D22F168BB003967E4 /* StoreView.swift */,
+				5BB51C6E23056A4E00AE3C8B /* ProgressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				5B25C0432302B50D00589965 /* Constant.swift in Sources */,
 				5BAD56CB22F1958F005E3393 /* StoreModel.swift in Sources */,
 				5BD6752222FA7E700055E9BF /* StoreDBManager.swift in Sources */,
+				5BB51C6F23056A4E00AE3C8B /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
