@@ -11,6 +11,9 @@ import UIKit
 class StoreView: UIView {
     
     fileprivate let upgradeButton: UIButton
+    fileprivate let upgradeLabel: UILabel
+    fileprivate let upgradeMoneyLabel: UILabel
+    
     fileprivate let unlockButton: UIButton
     
     fileprivate let contentView: UIView
@@ -25,6 +28,9 @@ class StoreView: UIView {
     
     override init(frame: CGRect) {
         upgradeButton = UIButton(type: .custom)
+        upgradeLabel = UILabel(frame: CGRect.zero)
+        upgradeMoneyLabel = UILabel(frame: CGRect.zero)
+        
         unlockButton = UIButton(type: .custom)
         
         contentView = UIView(frame: CGRect.zero)
@@ -92,8 +98,7 @@ extension StoreView {
     
     fileprivate func prepareButton() {
         upgradeButton.addTarget(self, action: #selector(upgradeButtonAction), for: .touchUpInside)
-        upgradeButton.setTitle("升级", for: .normal)
-        upgradeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        upgradeButton.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
         upgradeButton.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         upgradeButton.layer.borderWidth = 0
         contentView.addSubview(upgradeButton)
