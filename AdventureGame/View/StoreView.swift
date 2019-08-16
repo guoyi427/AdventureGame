@@ -11,14 +11,12 @@ import UIKit
 class StoreView: UIView {
     
     fileprivate let upgradeButton: UIButton
-//    fileprivate let operationButton: UIButton
     fileprivate let unlockButton: UIButton
     
     fileprivate let contentView: UIView
     fileprivate let avatarView: UIImageView
     fileprivate let incomeLabel: UILabel
     fileprivate let levelLabel: UILabel
-//    fileprivate let levelTitleLabel: UILabel
     fileprivate let timeLabel: UILabel
     fileprivate let progressView: ProgressView
 
@@ -27,7 +25,6 @@ class StoreView: UIView {
     
     override init(frame: CGRect) {
         upgradeButton = UIButton(type: .custom)
-//        operationButton = UIButton(type: .custom)
         unlockButton = UIButton(type: .custom)
         
         contentView = UIView(frame: CGRect.zero)
@@ -35,7 +32,6 @@ class StoreView: UIView {
         progressView = ProgressView(frame: CGRect.zero)
         incomeLabel = UILabel(frame: CGRect.zero)
         levelLabel = UILabel(frame: CGRect.zero)
-//        levelTitleLabel = UILabel(frame: CGRect.zero)
         timeLabel = UILabel(frame: CGRect.zero)
         
         super.init(frame: frame)
@@ -102,11 +98,6 @@ extension StoreView {
         upgradeButton.layer.borderWidth = 0
         contentView.addSubview(upgradeButton)
         
-//        operationButton.addTarget(self, action: #selector(operationButtonAction), for: .touchUpInside)
-//        operationButton.setTitle("执行", for: .normal)
-//        operationButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-//        contentView.addSubview(operationButton)
-        
         unlockButton.addTarget(self, action: #selector(unlockButtonAction), for: .touchUpInside)
         unlockButton.setTitle("解锁店铺", for: .normal)
         unlockButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -119,19 +110,11 @@ extension StoreView {
         avatarView.layer.cornerRadius = CGFloat(Width_Avatar / 2)
         avatarView.layer.masksToBounds = true
         contentView.addSubview(avatarView)
-
         contentView.addSubview(progressView)
         
         incomeLabel.font = UIFont.systemFont(ofSize: 18)
         contentView.addSubview(incomeLabel)
-        
         contentView.addSubview(levelLabel)
-        
-//        levelTitleLabel.text = "level:"
-//        levelTitleLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-//        levelTitleLabel.font = UIFont.systemFont(ofSize: 10)
-//        contentView.addSubview(levelTitleLabel)
-        
         contentView.addSubview(timeLabel)
     }
     
@@ -170,22 +153,11 @@ extension StoreView {
             make.right.equalTo(timeLabel.snp.left)
         }
         
-//        operationButton.snp.makeConstraints { (make) in
-//            make.left.bottom.equalTo(0)
-//            make.width.equalTo(upgradeButton)
-//            make.top.equalTo(upgradeButton.snp.bottom)
-//        }
-        
         //  等级
         levelLabel.snp.makeConstraints { (make) in
             make.top.equalTo(avatarView.snp.bottom).offset(0)
             make.centerX.equalTo(avatarView)
         }
-        
-//        levelTitleLabel.snp.makeConstraints { (make) in
-//            make.right.equalTo(levelLabel.snp.left).offset(-5)
-//            make.centerY.equalTo(levelLabel)
-//        }
         
         //  倒计时
         timeLabel.snp.makeConstraints { (make) in
@@ -209,12 +181,6 @@ extension StoreView {
         guard let model = storeModel else { return }
         model.upgrade()
     }
-    
-    /// 执行按钮方法
-//    @objc fileprivate func operationButtonAction() {
-//        guard let model = storeModel else { return }
-//        model.operation()
-//    }
     
     /// 解锁商店方法
     @objc fileprivate func unlockButtonAction() {

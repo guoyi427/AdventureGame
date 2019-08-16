@@ -13,7 +13,7 @@ private let MaxMultipleDiffer = 5
 /// 倍数因子
 private let MultipleFactor: Double = 1000
 
-private let textList = ["", "a", "b", "c", "d", "e", "f", "g"]
+private let textList = ["", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"]
 
 struct MoneyUnit {
     var number: Double

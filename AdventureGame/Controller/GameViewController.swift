@@ -79,7 +79,7 @@ extension GameViewController {
             make.top.equalTo(50)
         }
         backgroundView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 470)
-        backgroundView.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        backgroundView.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
         
         //  总收入
         view.addSubview(totalIncomeLabel)
