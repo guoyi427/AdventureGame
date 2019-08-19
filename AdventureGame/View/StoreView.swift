@@ -133,9 +133,14 @@ extension StoreView {
         contentView.addSubview(avatarView)
         contentView.addSubview(progressView)
         
+        incomeLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         incomeLabel.font = UIFont.systemFont(ofSize: 18)
         contentView.addSubview(incomeLabel)
+        
+        levelLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         contentView.addSubview(levelLabel)
+        
+        timeLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         contentView.addSubview(timeLabel)
     }
     
@@ -157,7 +162,7 @@ extension StoreView {
             make.left.equalTo(avatarView.snp.right)
             make.right.equalTo(0)
             make.top.equalTo(0)
-            make.height.equalTo(50)
+            make.height.equalTo(40)
         }
         
         //  收入标签
@@ -169,20 +174,20 @@ extension StoreView {
         upgradeButton.snp.makeConstraints { (make) in
             make.left.equalTo(progressView)
             make.width.greaterThanOrEqualTo(200)
-            make.top.equalTo(progressView.snp.bottom)
+            make.top.equalTo(progressView.snp.bottom).offset(5)
             make.bottom.equalTo(0)
-            make.right.equalTo(timeLabel.snp.left)
         }
         
         //  升级标签
         upgradeLabel.snp.makeConstraints { (make) in
-            make.left.top.equalTo(5)
+            make.left.equalTo(5)
+            make.centerY.equalToSuperview()
         }
         
         //  升级需要的金币数量
         upgradeMoneyLabel.snp.makeConstraints { (make) in
             make.right.equalTo(-5)
-            make.top.equalTo(5)
+            make.centerY.equalToSuperview()
         }
         
         //  等级
@@ -194,7 +199,7 @@ extension StoreView {
         //  倒计时
         timeLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(upgradeButton)
-            make.left.equalTo(upgradeButton.snp.right)
+            make.left.equalTo(upgradeButton.snp.right).offset(10)
             make.width.equalTo(100)
         }
         
