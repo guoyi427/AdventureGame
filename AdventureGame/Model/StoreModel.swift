@@ -13,6 +13,9 @@ let NameList = ["Lemoned", "Newspaper", "Car", "Donut", "Seafood", "Sport", "Mov
 let AvatarList = [#imageLiteral(resourceName: "lemon"), #imageLiteral(resourceName: "newspaper"), #imageLiteral(resourceName: "car"), #imageLiteral(resourceName: "donut"), #imageLiteral(resourceName: "seafood"), #imageLiteral(resourceName: "sport"), #imageLiteral(resourceName: "movie"), #imageLiteral(resourceName: "government"), #imageLiteral(resourceName: "oil")]
 /// 最大下标
 let MaxStoreIndex = 8
+/// 计时器间隔
+let TimerInterval = 0.1
+
 
 class StoreModel: NSObject {
     /// 商店名称
@@ -94,7 +97,7 @@ class StoreModel: NSObject {
         }
         
         if timer == nil {
-            timer = Timer(timeInterval: 0.1, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
+            timer = Timer(timeInterval: TimerInterval, target: self, selector: #selector(updateTimerAction), userInfo: nil, repeats: true)
             RunLoop.main.add(timer!, forMode: .common)
         }
         
@@ -154,7 +157,7 @@ extension StoreModel {
     @objc
     fileprivate func updateTimerAction() {
         //  更新进度，并更新UI
-        time += 0.1
+        time += TimerInterval
         isOperation = true
         if let view = view {
             //  升级需要消耗的钱    如果攒够钱 view需要更新按钮状态

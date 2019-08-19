@@ -62,8 +62,12 @@ class StoreView: UIView {
         timeLabel.text = String(format: "%.1fs", time >= 0 ? time : 0)
         
         //  更新执行进度
-        let progress = Float(model.time) / Float(model.interval)
-        progressView.progress = progress < 1 ? progress : 0
+        //  如果间隔小于刷新频率，就将进度条设置成满进度
+        var progress = Float(model.time) / Float(model.interval)
+        if model.interval < TimerInterval * 2 {
+            progress = 1
+        }
+        progressView.progress = progress <= 1 ? progress : 0
         
         //  如果金币足够升级，点亮升级按钮
         upgradeButton.layer.borderWidth = StoreManager.shared.totalIncome >= model.upgradeMoney ? 2 : 0
@@ -88,10 +92,10 @@ fileprivate let Width_Avatar = 50
 extension StoreView {
     
     fileprivate func prepareUI() {
-        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         //  背景，除了解锁按钮，所有视图都在这上面
-        contentView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+//        contentView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         addSubview(contentView)
         
         prepareButton()
