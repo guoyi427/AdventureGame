@@ -68,6 +68,9 @@ class StoreView: UIView {
         //  如果金币足够升级，点亮升级按钮
         upgradeButton.layer.borderWidth = StoreManager.shared.totalIncome >= model.upgradeMoney ? 2 : 0
         
+        //  升级需要的金币
+        upgradeMoneyLabel.text = model.upgradeMoney.text()
+        
         contentView.isHidden = !model.isUnlock
         unlockButton.isHidden = model.isUnlock
         
@@ -85,10 +88,10 @@ fileprivate let Width_Avatar = 50
 extension StoreView {
     
     fileprivate func prepareUI() {
-        backgroundColor = #colorLiteral(red: 0.7019608021, green: 0.8431372643, blue: 1, alpha: 1)
+        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         //  背景，除了解锁按钮，所有视图都在这上面
-        contentView.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        contentView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         addSubview(contentView)
         
         prepareButton()
@@ -98,10 +101,19 @@ extension StoreView {
     
     fileprivate func prepareButton() {
         upgradeButton.addTarget(self, action: #selector(upgradeButtonAction), for: .touchUpInside)
-        upgradeButton.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
-        upgradeButton.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        upgradeButton.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.672638317, blue: 0.9686274529, alpha: 1)
+        upgradeButton.layer.borderColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
         upgradeButton.layer.borderWidth = 0
         contentView.addSubview(upgradeButton)
+        
+        upgradeLabel.text = "升级"
+        upgradeLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        upgradeLabel.font = UIFont.systemFont(ofSize: 12)
+        upgradeButton.addSubview(upgradeLabel)
+        
+        upgradeMoneyLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        upgradeMoneyLabel.font = UIFont.systemFont(ofSize: 14)
+        upgradeButton.addSubview(upgradeMoneyLabel)
         
         unlockButton.addTarget(self, action: #selector(unlockButtonAction), for: .touchUpInside)
         unlockButton.setTitle("解锁店铺", for: .normal)
@@ -156,6 +168,17 @@ extension StoreView {
             make.top.equalTo(progressView.snp.bottom)
             make.bottom.equalTo(0)
             make.right.equalTo(timeLabel.snp.left)
+        }
+        
+        //  升级标签
+        upgradeLabel.snp.makeConstraints { (make) in
+            make.left.top.equalTo(5)
+        }
+        
+        //  升级需要的金币数量
+        upgradeMoneyLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(-5)
+            make.top.equalTo(5)
         }
         
         //  等级
