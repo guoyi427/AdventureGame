@@ -63,7 +63,7 @@ class TotalDBManager: NSObject {
             sqlite3_bind_double(insertStmt, 1, StoreManager.shared.totalIncome.number)
             sqlite3_bind_int(insertStmt, 2, Int32(StoreManager.shared.totalIncome.multiple))
             sqlite3_bind_int(insertStmt, 3, Int32(Date().timeIntervalSince1970))
-            sqlite3_bind_int(insertStmt, 4, Int32(StoreManager.shared.multiple))
+            sqlite3_bind_double(insertStmt, 4, StoreManager.shared.multiple)
             sqlite3_bind_int(insertStmt, 5, Int32(StoreManager.shared.diamonds))
             sqlite3_bind_int(insertStmt, 6, Int32(StoreManager.shared.circle))
             
@@ -93,7 +93,7 @@ class TotalDBManager: NSObject {
             let income = MoneyUnit(number: incomeNumber, multiple: incomeMultiple)
             StoreManager.shared.totalIncome = income
             StoreManager.shared.leaveTime = Int(sqlite3_column_int(selectStmt, 3))
-            StoreManager.shared.multiple = Int(sqlite3_column_int(selectStmt, 4))
+            StoreManager.shared.multiple = sqlite3_column_double(selectStmt, 4)
             StoreManager.shared.diamonds = Int(sqlite3_column_int(selectStmt, 5))
             StoreManager.shared.circle = Int(sqlite3_column_int(selectStmt, 6))
         }

@@ -13,10 +13,16 @@ class StoreManager: NSObject {
     
     /// 总收入
     var totalIncome: MoneyUnit = MoneyUnit.zero
-    var multiple = 1
+    /// 总收入倍数
+    var multiple: Double = 1
+    /// 生命周期
     var circle = 1
+    /// 总钻石数
     var diamonds = 0
+    /// 上次离开时间
     var leaveTime = 0
+    /// 催化剂结束时间
+    var catalyzerEndTime: Double = 0
     
     
     

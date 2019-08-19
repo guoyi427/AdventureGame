@@ -168,7 +168,7 @@ extension StoreModel {
         if time >= interval {
             isOperation = false
             //  结束一轮 增加总收入
-            StoreManager.shared.changeTotaleIncome(income: income)
+            StoreManager.shared.changeTotaleIncome(income: income * StoreManager.shared.multiple)
             //  判断是否有管理员，自动执行下一次
             if hasManager {
                 resetCache()
