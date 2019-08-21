@@ -54,7 +54,7 @@ class StoreView: UIView {
         
         //  更新基础数据
         avatarView.image = model.avatarImage
-        incomeLabel.text = model.income.text()
+        incomeLabel.text = (model.income * StoreManager.shared.multiple).text()
         levelLabel.text = "\(model.level)"
         
         //  剩余时间

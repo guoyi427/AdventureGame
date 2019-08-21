@@ -108,9 +108,7 @@ class StoreManager: NSObject {
             }
         }
         
-//        let ips = totalIPS / Double(list.count)
-        
-        return totalIPS
+        return totalIPS * multiple
     }
 }
 

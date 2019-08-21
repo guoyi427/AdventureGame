@@ -13,6 +13,7 @@ class GameViewController: UIViewController {
 
     /// 商店数组
     fileprivate var storeViewList: [StoreView] = []
+    fileprivate var timer: Timer?
     
     /// 头部视图
     fileprivate let headView: UIView
@@ -34,7 +35,6 @@ class GameViewController: UIViewController {
         ipsLabel = UILabel(frame: CGRect.zero)
         diamondsLabel = UILabel(frame: CGRect.zero)
         catalyzerButton = UIButton(frame: CGRect.zero)
-        
         super.init(coder: aDecoder)
         
         if let appdelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -49,6 +49,8 @@ class GameViewController: UIViewController {
         prepareContentView()
         
         StoreManager.shared.delegate = self
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerUpdateAction), userInfo: nil, repeats: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -160,6 +162,17 @@ extension GameViewController {
             storeViewList.append(storeView)
             backgroundView.addSubview(storeView)
             StoreManager.shared.setupModel(index: x, view: storeView)
+        }
+    }
+    
+    /// 计时器更新方法
+    @objc fileprivate func timerUpdateAction() {
+        let catalyzerInterval = StoreManager.shared.catalyzerEndTime - Date.init().timeIntervalSince1970
+        if catalyzerInterval > 0 {
+            StoreManager.shared.multiple = 2
+            print("catalyzerInterval = \(catalyzerInterval)")
+        } else {
+            StoreManager.shared.multiple = 1
         }
     }
 }
