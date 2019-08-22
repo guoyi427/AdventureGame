@@ -214,7 +214,13 @@ extension GameViewController {
     /// 催化剂按钮
     @objc fileprivate func catalyzerButtonAction() {
         //  判断当前是否正在使用催化剂
-        
+        if Date.init().timeIntervalSince1970 < StoreManager.shared.catalyzerEndTime {
+            let errorAlert = UIAlertController(title: "当前催化剂还在生效", message: "请不要重复使用催化剂", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "知道了", style: .cancel, handler: nil)
+            errorAlert.addAction(cancelAction)
+            present(errorAlert, animated: true, completion: nil)
+            return
+        }
         
         //  准备弹窗
         let intervalList: [Double] = [1, 2, 4, 8]
@@ -225,8 +231,19 @@ extension GameViewController {
             let interval = intervalList[x]
             let diamonds = diamondsList[x]
             let alertAction = UIAlertAction(title: "催化剂实效\(interval)小时，消耗\(diamonds)钻石", style: .default) { (action) in
+                //  判断钻石是否够用
+                if StoreManager.shared.diamonds < diamonds {
+                    //  钻石不够
+                    let errorAlert = UIAlertController(title: "钻石不够", message: "催化剂实效\(interval)小时，消耗\(diamonds)钻石", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "知道了", style: .cancel, handler: nil)
+                    errorAlert.addAction(cancelAction)
+                    self.present(errorAlert, animated: true, completion: nil)
+                    return
+                }
+                
                 StoreManager.shared.catalyzerEndTime = intervalList[x] * 3600 + Date.init().timeIntervalSince1970
                 StoreManager.shared.multiple += 1
+                StoreManager.shared.diamonds -= diamonds
                 TotalDBManager.shared.saveTotal()
             }
             alertController.addAction(alertAction)
