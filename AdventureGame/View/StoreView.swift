@@ -92,10 +92,7 @@ fileprivate let Width_Avatar = 50
 extension StoreView {
     
     fileprivate func prepareUI() {
-//        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
         //  背景，除了解锁按钮，所有视图都在这上面
-//        contentView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         addSubview(contentView)
         
         prepareButton()
@@ -131,6 +128,11 @@ extension StoreView {
         avatarView.layer.cornerRadius = CGFloat(Width_Avatar / 2)
         avatarView.layer.masksToBounds = true
         contentView.addSubview(avatarView)
+        
+        let avatarTapGR = UITapGestureRecognizer(target: self, action: #selector(tapAvatarGestureRecognizerAction))
+        avatarView.isUserInteractionEnabled = true
+        avatarView.addGestureRecognizer(avatarTapGR)
+        
         contentView.addSubview(progressView)
         
         incomeLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -226,5 +228,11 @@ extension StoreView {
             model.unlockStore()
             self.update(model: model)
         }
+    }
+    
+    /// 点击头像方法
+    @objc fileprivate func tapAvatarGestureRecognizerAction() {
+        guard let model = storeModel else { return }
+        StoreManager.shared.changeTotaleIncome(income: model.income * StoreManager.shared.multiple)
     }
 }
