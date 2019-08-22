@@ -234,5 +234,19 @@ extension StoreView {
     @objc fileprivate func tapAvatarGestureRecognizerAction() {
         guard let model = storeModel else { return }
         StoreManager.shared.changeTotaleIncome(income: model.income * StoreManager.shared.multiple)
+
+        //  头像动画
+        let animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.duration = 0.1
+        animation.toValue = 1.2
+        
+        let restoreAnimation = CABasicAnimation(keyPath: "transform.scale")
+        restoreAnimation.duration = 0.1
+        restoreAnimation.toValue = 1
+        
+        let groupAnimation = CAAnimationGroup.init()
+        groupAnimation.animations = [animation, restoreAnimation]
+        
+        avatarView.layer.add(groupAnimation, forKey: "scale")
     }
 }
