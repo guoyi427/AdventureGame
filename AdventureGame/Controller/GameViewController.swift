@@ -170,7 +170,6 @@ extension GameViewController {
         let catalyzerInterval = StoreManager.shared.catalyzerEndTime - Date.init().timeIntervalSince1970
         if catalyzerInterval > 0 {
             StoreManager.shared.multiple = 2
-            print("catalyzerInterval = \(catalyzerInterval)")
         } else {
             StoreManager.shared.multiple = 1
         }

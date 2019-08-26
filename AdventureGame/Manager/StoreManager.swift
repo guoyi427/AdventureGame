@@ -133,19 +133,30 @@ extension StoreManager {
         guard let gameController = appdelegate.gameController else { return }
         if leaveTime > 0 {
             let currentTimestamp = Date.init().timeIntervalSince1970
+            /// 后台时间
             let differTime = currentTimestamp - TimeInterval(leaveTime)
+            //  如果后台时间太短，就不提示用户了
+            if differTime < 60 {
+                return
+            }
+            /// 后台收入 = 平均每小时收入 * 后台时间
             let backgroundIncome = calculateAverageIncomePerSeconds() * differTime
+            /// 每连续后台一小时增加一枚钻石消耗
+            var needDiamonds = Int(differTime / 3600)
+            if needDiamonds == 0 {
+                needDiamonds = 1
+            }
             
             let cancelAction = UIAlertAction(title: "拒绝", style: .cancel, handler: nil)
             let diamondsAction = UIAlertAction(title: "消耗钻石", style: .default) { (action) in
                 //  消耗钻石，将后台收入加入到总收入
-                self.earnBackgroundIncomeByDiamonds(income: backgroundIncome)
+                self.earnBackgroundIncomeByDiamonds(income: backgroundIncome, needDiamonds: needDiamonds)
             }
             let advertAction = UIAlertAction(title: "看广告", style: .default) { (action) in
                 //  看广告
                 self.earnBackgroundIncomeByAdvert(income: backgroundIncome)
             }
-            let alertController = UIAlertController(title: "后台收入", message: "您在后台这段时间赚取了\(backgroundIncome.text())金币，可消耗5枚钻石或者点击一个广告获取后台收益", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "后台收入", message: "您在后台这段时间赚取了\(backgroundIncome.text())金币，可消耗\(needDiamonds)枚钻石或者点击一个广告获取后台收益", preferredStyle: .alert)
             alertController.addAction(diamondsAction)
             alertController.addAction(advertAction)
             alertController.addAction(cancelAction)
@@ -186,14 +197,17 @@ extension StoreManager {
     
     /// 通过钻石获取后台收益
     ///
-    /// - Parameter income: 后台收益
-    fileprivate func earnBackgroundIncomeByDiamonds(income: MoneyUnit) {
+    /// - Parameters:
+    ///   - income: 后台收益
+    ///   - needDiamonds: 获取收益所需要的钻石
+    fileprivate func earnBackgroundIncomeByDiamonds(income: MoneyUnit, needDiamonds: Int) {
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         guard let gameController = appdelegate.gameController else { return }
         
-        if StoreManager.shared.diamonds >= 5 {
+        //  判断当前剩余钻石够不够
+        if StoreManager.shared.diamonds >= needDiamonds {
             self.changeTotaleIncome(income: income)
-            StoreManager.shared.diamonds -= 5
+            StoreManager.shared.diamonds -= needDiamonds
             TotalDBManager.shared.saveTotal()
             gameController.uploadStoreView()
         } else {
