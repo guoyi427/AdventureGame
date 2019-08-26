@@ -27,6 +27,8 @@ class GameViewController: UIViewController {
     fileprivate let diamondsLabel: UILabel
     /// 催化剂按钮，可加速赚金币
     fileprivate let catalyzerButton: UIButton
+    /// 催化剂剩余时间
+    fileprivate let catalyzerTimeLabel: UILabel
     
     required init?(coder aDecoder: NSCoder) {
         headView = UIView(frame: CGRect.zero)
@@ -35,6 +37,7 @@ class GameViewController: UIViewController {
         ipsLabel = UILabel(frame: CGRect.zero)
         diamondsLabel = UILabel(frame: CGRect.zero)
         catalyzerButton = UIButton(frame: CGRect.zero)
+        catalyzerTimeLabel = UILabel(frame: CGRect.zero)
         super.init(coder: aDecoder)
         
         if let appdelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -142,6 +145,14 @@ extension GameViewController {
             make.right.equalTo(earnDiamondsButton.snp.left).offset(-20)
             make.centerY.equalToSuperview()
         }
+        
+        headView.addSubview(catalyzerTimeLabel)
+        catalyzerTimeLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        catalyzerTimeLabel.font = UIFont.systemFont(ofSize: 12)
+        catalyzerTimeLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(catalyzerButton.snp.left).offset(-10)
+            make.centerY.equalToSuperview()
+        }
     }
     
     /// 更新UI
@@ -170,8 +181,10 @@ extension GameViewController {
         let catalyzerInterval = StoreManager.shared.catalyzerEndTime - Date.init().timeIntervalSince1970
         if catalyzerInterval > 0 {
             StoreManager.shared.multiple = 2
+            catalyzerTimeLabel.text = "催化剂剩余时间\(catalyzerInterval)s"
         } else {
             StoreManager.shared.multiple = 1
+            catalyzerTimeLabel.text = ""
         }
     }
 }

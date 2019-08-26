@@ -37,4 +37,18 @@ class Constant: NSObject {
     static let topArea: CGFloat = ScreenHeight == 812 ? 44 : 0
  
     static let cellPadding: CGFloat = 5
+    
+    /// 格式化秒
+    ///
+    /// - Parameter seconds: 秒
+    /// - Returns: 时间字符串
+    static func formatteSeconds(seconds: Double) -> String {
+        var result = ""
+        if seconds < 60 {
+            result = "\(Int(seconds))秒"
+        } else if seconds < 3600 {
+            let minutes = Int(seconds/60)
+            result = "\(minutes)分钟"
+        }
+    }
 }
