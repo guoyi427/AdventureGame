@@ -45,10 +45,19 @@ class Constant: NSObject {
     static func formatteSeconds(seconds: Double) -> String {
         var result = ""
         if seconds < 60 {
+            //  一分钟以内
             result = "\(Int(seconds))秒"
         } else if seconds < 3600 {
-            let minutes = Int(seconds/60)
+            //  一小时以内
+            let minutes = Int(seconds / 60)
             result = "\(minutes)分钟"
+        } else if seconds < 86400 {
+            //  一天以内
+            let hours = Int(seconds / 3600)
+            let minutes = Int(seconds) % 3600 / 60
+            let remaindSeconds = Int(seconds) % 60
+            result = "\(hours):\(minutes):\(remaindSeconds)"
         }
+        return result
     }
 }

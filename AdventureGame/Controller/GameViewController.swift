@@ -181,7 +181,7 @@ extension GameViewController {
         let catalyzerInterval = StoreManager.shared.catalyzerEndTime - Date.init().timeIntervalSince1970
         if catalyzerInterval > 0 {
             StoreManager.shared.multiple = 2
-            catalyzerTimeLabel.text = "催化剂剩余时间\(catalyzerInterval)s"
+            catalyzerTimeLabel.text = "催化剂剩余时间:\(Constant.formatteSeconds(seconds: catalyzerInterval))"
         } else {
             StoreManager.shared.multiple = 1
             catalyzerTimeLabel.text = ""
