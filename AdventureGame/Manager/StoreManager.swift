@@ -134,11 +134,14 @@ extension StoreManager {
         if leaveTime > 0 {
             let currentTimestamp = Date.init().timeIntervalSince1970
             /// 后台时间
-            let differTime = currentTimestamp - TimeInterval(leaveTime)
-            //  如果后台时间太短，就不提示用户了
+            var differTime = currentTimestamp - TimeInterval(leaveTime)
             if differTime < 60 {
+                //  如果后台时间太短，就不提示用户了
                 return
             }
+            
+            //  后台时间不能超过12小时
+            differTime = differTime > 43200 ? 43200 : differTime
             /// 后台收入 = 平均每小时收入 * 后台时间
             let backgroundIncome = calculateAverageIncomePerSeconds() * differTime
             /// 每连续后台一小时增加一枚钻石消耗
@@ -156,7 +159,7 @@ extension StoreManager {
                 //  看广告
                 self.earnBackgroundIncomeByAdvert(income: backgroundIncome)
             }
-            let alertController = UIAlertController(title: "后台收入", message: "您在后台这段时间赚取了\(backgroundIncome.text())金币，可消耗\(needDiamonds)枚钻石或者点击一个广告获取后台收益", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "后台收入（最多12小时）", message: "您在后台这段时间赚取了\(backgroundIncome.text())金币，可消耗\(needDiamonds)枚钻石或者点击一个广告获取后台收益", preferredStyle: .alert)
             alertController.addAction(diamondsAction)
             alertController.addAction(advertAction)
             alertController.addAction(cancelAction)
