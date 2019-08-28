@@ -20,6 +20,7 @@ class ProgressView: UIView {
         progress = 0
         super.init(frame: frame)
         backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -60,7 +61,6 @@ class ProgressView: UIView {
         path.closeSubpath()
         
         shapeLayer.path = path
-        shapeLayer.strokeColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).cgColor
         self.layer.mask = shapeLayer
     }
 }

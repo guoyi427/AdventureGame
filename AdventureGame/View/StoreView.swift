@@ -102,9 +102,11 @@ extension StoreView {
     
     fileprivate func prepareButton() {
         upgradeButton.addTarget(self, action: #selector(upgradeButtonAction), for: .touchUpInside)
-        upgradeButton.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.672638317, blue: 0.9686274529, alpha: 1)
+        upgradeButton.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         upgradeButton.layer.borderColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
         upgradeButton.layer.borderWidth = 0
+        upgradeButton.layer.cornerRadius = 5
+        upgradeButton.layer.masksToBounds = true
         contentView.addSubview(upgradeButton)
         
         upgradeLabel.text = "升级"
@@ -125,8 +127,11 @@ extension StoreView {
     }
     
     fileprivate func prepareContentView() {
-        avatarView.layer.cornerRadius = CGFloat(Width_Avatar / 2)
-        avatarView.layer.masksToBounds = true
+//        avatarView.layer.cornerRadius = CGFloat(5)
+//        avatarView.layer.masksToBounds = true
+//        avatarView.layer.borderColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+//        avatarView.layer.borderWidth = 1.0
+        avatarView.contentMode = .scaleAspectFit
         contentView.addSubview(avatarView)
         
         let avatarTapGR = UITapGestureRecognizer(target: self, action: #selector(tapAvatarGestureRecognizerAction))
@@ -161,7 +166,7 @@ extension StoreView {
         
         //  进度条
         progressView.snp.makeConstraints { (make) in
-            make.left.equalTo(avatarView.snp.right)
+            make.left.equalTo(avatarView.snp.right).offset(5)
             make.right.equalTo(0)
             make.top.equalTo(0)
             make.height.equalTo(40)

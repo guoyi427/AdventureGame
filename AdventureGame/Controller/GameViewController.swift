@@ -165,7 +165,7 @@ extension GameViewController {
             make.top.equalTo(headView.snp.bottom)
         }
         backgroundView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 470)
-        backgroundView.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        backgroundView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         
         //  商店
         for x in 0...MaxStoreIndex {

@@ -126,6 +126,7 @@ class StoreModel: NSObject {
         
         //  更新数据库
         StoreDBManager.shared.save(model: self)
+        TotalDBManager.shared.saveTotal()
         
         //  更新UI
         if let view = view {
